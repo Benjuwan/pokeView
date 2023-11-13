@@ -1,12 +1,12 @@
 import { memo, useState, useEffect, useContext, useCallback } from "react";
 import styled from "styled-components";
-import { pokeLists } from "./ts/GetFetchDataType";
-import { GetFetchDataContext } from "./provider/GetFetchDataContext";
-import { BtnComponent } from "./BtnComponent";
-import { useViewImges } from "./hook/useViewImges";
-import { usePager } from "./hook/usePager";
-import { useFetchPokeData } from "./hook/useFetchPokeData";
+import { pokeLists } from "../ts/GetFetchDataType";
+import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { Pagination } from "./Pagination";
+import { BtnComponent } from "./BtnComponent";
+import { useViewImges } from "../hook/useViewImges";
+import { usePager } from "../hook/usePager";
+import { useFetchPokeData } from "../hook/useFetchPokeData";
 
 export const PokeContents = memo(() => {
   /* 各種 Context */

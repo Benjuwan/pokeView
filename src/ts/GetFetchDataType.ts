@@ -14,8 +14,16 @@ export type pokeFetchData = {
 export type pokeLists = {
     id: number;
     name: string;
-    img: string;
-    officialImg: string;
+    img: string | undefined;
+    officialImg: string | undefined;
+    sprites?: {
+        front_default: string;
+        other: {
+            ["official-artwork"]: {
+                front_default: string;
+            };
+        };
+    };
     type?: string;
     flavor_text?: {
         flavor_text: string;
