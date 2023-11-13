@@ -74,7 +74,7 @@ export const PokeContents = memo(() => {
       {isPokeData.length > 0 &&
         <>
           <Pagination />
-          <div style={{ 'display': 'flex', 'gap': '5%', 'width': '100%', 'margin': '0 auto 3em' }}>
+          <div className="ctrlBtns">
             <BtnComponent btnTxt="前のページ"
               disabledBool={isPagers <= 0}
               classNameTxt="Prev"
@@ -188,5 +188,12 @@ margin: 0 auto;
         }
       }
     }
+  }
+
+  & .ctrlBtns{
+    display: flex;
+    gap: 5%;
+    width: 100%;
+    margin: 0 auto 3em;
   }
 `;
