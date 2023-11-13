@@ -1,5 +1,5 @@
 import "./App.css";
-import { PokeContents } from "./PokeContents";
+import { PokeContents } from "./pokeComponents/PokeContents";
 
 export const App = () => {
   return (

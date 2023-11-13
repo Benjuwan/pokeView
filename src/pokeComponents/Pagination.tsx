@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { GetFetchDataContext } from "./provider/GetFetchDataContext";
+import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 
 export const Pagination = memo(() => {
     const { isPokeData, pagerLimitMaxNum, setPagers, isOffSet, isCurrPage, setCurrPage } = useContext(GetFetchDataContext);

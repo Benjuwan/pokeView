@@ -18,6 +18,21 @@ export const useFetchPokeData = () => {
             return resObj.map(resObjEl => resObjEl);
         }
 
+        /* ポケモン名を「英語名 → 日本語名」に置換 */
+        const _replacePokeName_enToja = (
+            targetAry: pokeNameLocalJsonFile[],
+            originName: pokeLists // 配列（オブジェクト）の中身として指定
+        ) => {
+            targetAry.forEach(pokeName => {
+                /* 置換処理に必要な文字列マッチングを行うために、それぞれ大文字にする */
+                const UpperCase_jsonPokeName_en: string = pokeName.en.toUpperCase();
+                const UpperCase_fetchPokeName: string = originName.name.toUpperCase();
+                if (UpperCase_jsonPokeName_en.match(UpperCase_fetchPokeName)) {
+                    originName.name = pokeName.ja;
+                }
+            });
+        }
+
         /* ポケモンデータを取得 */
         const fetchPokeData = async () => {
             const FetchPokeName = await _FetchPokeName(); // 各ポケモンの英語・日本語名が格納されている配列
@@ -28,7 +43,8 @@ export const useFetchPokeData = () => {
             setPagerLimitMaxNum((_prevPagerLimitMaxNum) => resObj.count); // 上限値の設定
 
             resObjResult.forEach(pokeDataSrc => {
-                fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`).then(res => res.json()).then((pokeData) => {
+                fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`).then(res => res.json()).then((pokeData: pokeLists) => {
+                    /* then((pokeData: pokeLists)：配列（オブジェクト）の中身として指定 */
 
                     // fetch(pokeData.species.url).then(res => res.json()).then(speciesUrl => {
                     //   // console.log(speciesUrl.genera[0].genus);
@@ -50,18 +66,13 @@ export const useFetchPokeData = () => {
                     // });
 
                     /* ポケモン名を「英語名 → 日本語名」にする */
-                    FetchPokeName.forEach(pokeName => {
-                        /* ポケモン名を「英語名 → 日本語名」にする処理を行うために、それぞれ大文字にする */
-                        const UpperCase_jsonPokeName_en: string = pokeName.en.toUpperCase();
-                        const UpperCase_fetchPokeName: string = pokeData.name.toUpperCase();
-                        if (UpperCase_jsonPokeName_en.match(UpperCase_fetchPokeName)) pokeData.name = pokeName.ja;
-                    });
+                    _replacePokeName_enToja(FetchPokeName, pokeData);
 
                     const newList: pokeLists = {
                         id: pokeData.id,
                         name: pokeData.name,
-                        img: pokeData.sprites.front_default,
-                        officialImg: pokeData.sprites.other["official-artwork"].front_default
+                        img: pokeData.sprites?.front_default,
+                        officialImg: pokeData.sprites?.other["official-artwork"].front_default,
                     }
                     setPokeData((_prevPokeData) => [..._prevPokeData, newList]);
                 });
