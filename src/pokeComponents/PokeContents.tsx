@@ -45,7 +45,7 @@ export const PokeContents = memo(() => {
       const limitBorderLine: number = pagerLimitMaxNum - isOffSet;
       if (isPagers >= limitBorderLine) {
         const remandNum: number = pagerLimitMaxNum - isPagers;
-        setPagerContentsFrag(isPagers, remandNum);
+        setPagerContentsFrag(isPagers, remandNum); // remandNum：残りのコンテンツ数を全表示
       } else {
         setPagerContentsFrag();
       }
