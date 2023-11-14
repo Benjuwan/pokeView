@@ -22,7 +22,8 @@ export const Pagination = memo(() => {
         window.scrollTo(0, 0); // スクロールトップ
     }
 
-    useEffect(() => {
+    /* オフセット数に基づいた計算を通してページネーション用の各ページャー項目のページを設定する */
+    const basedonOffsetNum_setPagerNum = () => {
         /* 初期表示時（isPagination が 0件）という条件を指定して再レンダリングに伴う倍数増加（下記処理実行）を防止 */
         if (isPagination.length <= 0) {
             const srcAry: number[] = [];
@@ -43,6 +44,9 @@ export const Pagination = memo(() => {
             }
             setPagination((_prevPagination) => [...isPagination, ...paginationAry]); // ページ数をセット
         }
+    }
+    useEffect(() => {
+        basedonOffsetNum_setPagerNum();
     }, [isPokeData]);
 
     return (
