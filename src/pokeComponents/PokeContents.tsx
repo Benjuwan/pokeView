@@ -50,7 +50,6 @@ export const PokeContents = memo(() => {
         setPagerContentsFrag();
       }
     }
-    window.scrollTo(0, 0); // スクロールトップ
   }, [isPokeData, isPagers]); // 依存配列 コンテンツデータの取得時・ページャー変更時
 
   return (

@@ -1,6 +1,9 @@
 import { memo, useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
+import { useCurrPagerSelect } from "../hook/useCurrPagerSelect";
+
+import monsterBall from "../../src/assets/monsterBall.png";
 
 export const Pagination = memo(() => {
     const { isPokeData, pagerLimitMaxNum, setPagers, isOffSet, isCurrPage, setCurrPage } = useContext(GetFetchDataContext);
@@ -11,16 +14,22 @@ export const Pagination = memo(() => {
     /* ページャー数 */
     const [isPagerNum, setPagerNum] = useState<number[]>([]);
 
-    /* 各ページャー項目の data-pager の値に準じたページを表示 */
+    /* 各ページャー項目の data-pager の値に準じたページを表示及びページ番号を変更 */
     const setPaginationNum = (
         btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>,
         pagerEl: number
     ) => {
         const dataPager: string | null = btnEl.currentTarget.getAttribute('data-pager');
         setPagers((_prevPagerNum) => Number(dataPager));
-        setCurrPage((_prevCurrPage) => pagerEl);
-        window.scrollTo(0, 0); // スクロールトップ
+        setCurrPage((_prevCurrPage) => pagerEl); // 表示中のページ番号を変更
+        setTimeout(() => window.scrollTo(0, 0), 500); // スクロールトップ
     }
+
+    /* isCurrPage State を依存配列に指定して使用し、当該 State が更新される度に現在ページのシグナル移行処理を行う。※「前のページ」「次のページ」クリック時にもシグナル移行を実現するための専用メソッド */
+    const { CheckCurrPager } = useCurrPagerSelect();
+    useEffect(() => {
+        CheckCurrPager();
+    }, [isCurrPage]);
 
     /* オフセット数に基づいた計算を通してページネーション用の各ページャー項目のページを設定する */
     const basedonOffsetNum_setPagerNum = () => {
@@ -54,9 +63,14 @@ export const Pagination = memo(() => {
             <p className="currPage">現在表示しているのは「{isCurrPage}」ページ目です。</p>
             {isPagination.map((pagerEl, i) =>
                 /* data-pager：ページャー数がセットされたカスタムデータ */
-                <button key={i} data-pager={isPagerNum[i]} onClick={(btnEl) => {
-                    setPaginationNum(btnEl, pagerEl);
-                }}>{pagerEl}</button>
+                <button key={i}
+                    className={`pagerLists ${i === 0 && 'afterRender'}`}
+                    data-current={i === 0}
+                    data-pager={isPagerNum[i]}
+                    onClick={(btnEl) => {
+                        setPaginationNum(btnEl, pagerEl);
+                    }}>{pagerEl}
+                </button>
             )}
         </Paginations>
     );
@@ -67,6 +81,7 @@ width: clamp(240px, 100%, 960px);
 margin: 0 auto 1em;
 display: flex;
 flex-flow: row wrap;
+align-items: center;
 gap: 2%;
 
 & .currPage{
@@ -78,16 +93,66 @@ gap: 2%;
 & button{
     cursor: pointer;
     appearance: none;
-    border: 1px solid #dadada;
     border-radius: 0;
-    background-color: #eaeaea;
+    border: 0;
+    background-color: transparent;
     min-width: 32px;
     margin-bottom: .5em;
+    
+    &.pagerLists{
+        position: relative;
+        background-color: #eaeaea;
+        border-radius: 8px;
+        padding: .25em;
+        
+        &[data-current="true"],
+        &.afterRender{
+            padding: 1em 1.25em;
+            background-color: transparent;
+            font-weight: bold;
 
-    &:hover{
-        background-color: #333;
-        color: #fff;
-        border-color: #fff;
+            &::before {
+                background: url(${monsterBall})no-repeat center center/cover;
+                border-radius: 50%;
+                box-shadow: 0 0 8px rgba(0, 0, 0, .5);
+                opacity: .25;
+                /* data-current が付いているものはスタイルを正す */
+                transform: scaleY(1) translateX(0%); 
+            }
+        }
+        
+        &::before {
+            display: block;
+            content: "";
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            position: absolute;
+            z-index: -1;
+            margin: auto;
+            inset: 0;
+            /* 縮小 → 拡大を実現するため scaleY(.5) で縦を縮めておく */
+            transform: scaleY(.5) translateX(0%);
+        }
+        
+        &.prev{
+            &::before{
+                left: 50%;
+                /* 縮小 → 拡大を実現するため scaleY(1) */
+                transform: scaleY(1) translateX(-50%);
+                transition: transform .5s;
+            }
+        }
+        
+        &.next{
+            &::before{
+                left: auto;
+                right: 50%;
+                /* 縮小 → 拡大を実現するため scaleY(1) */
+                transform: scaleY(1) translateX(50%);
+                transition: transform .5s;
+            }
+        }
     }
 }
 `;

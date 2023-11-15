@@ -7,11 +7,13 @@ export const usePager = () => {
     const prevPagerPages = () => {
         setPagers((_prevNum) => isPagers - isOffSet);
         setCurrPage((_prevCurrPage) => isCurrPage - 1);
+        setTimeout(() => window.scrollTo(0, 0), 500);
     }
 
     const nextPagerPages = () => {
         setPagers((_prevNum) => isPagers + isOffSet);
         setCurrPage((_prevCurrPage) => isCurrPage + 1);
+        setTimeout(() => window.scrollTo(0, 0), 500);
     }
 
     return { prevPagerPages, nextPagerPages }
