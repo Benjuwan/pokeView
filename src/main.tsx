@@ -4,9 +4,7 @@ import { App } from './App.tsx'
 import { GetFetchDataContextFragment } from './provider/GetFetchDataContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <GetFetchDataContextFragment>
+  <GetFetchDataContextFragment>
       <App />
     </GetFetchDataContextFragment>
-  </React.StrictMode>,
 );

@@ -5,15 +5,18 @@ import { pokeAry, pokeFetchData, pokeLists, pokeNameLocalJsonFile } from "../ts/
 export const useFetchPokeData = () => {
     const { setPokeData, setPagerLimitMaxNum } = useContext(GetFetchDataContext);
 
+    const isDevMode: boolean = true; // 開発・本番環境モードの切替用Bool
+
     const [isPokeGenera, setPokeGenera] = useState<string[]>([]);
     const [isPokeFlavorText, setPokeFlavorText] = useState<string[]>([]);
 
     const FetchPokeData = () => {
         /* pokemon.json から各ポケモンの英語名と日本語名を取得 */
         const _FetchPokeName = async () => {
-            const devModePath: string = `${location.origin}/src/assets/pokemon.json`; // 開発時
-            const hostingModePath: string = `${location.origin}/assets/pokemon.json`; // 本番環境時
-            const respone = await fetch(devModePath);
+            let fetchPath: string = '';
+            if (isDevMode) fetchPath = `${location.origin}/src/assets/pokemon.json`; // 開発時
+            else fetchPath = `${location.origin}/assets/pokemon.json`; // 本番環境時
+            const respone = await fetch(fetchPath);
             const resObj: pokeNameLocalJsonFile[] = await respone.json();
             return resObj.map(resObjEl => resObjEl);
         }

@@ -1,9 +1,10 @@
 import { memo, useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
+import { useChangeBackGround } from "../hook/useChangeBackGround";
 import { useCurrPagerSelect } from "../hook/useCurrPagerSelect";
 
-import monsterBall from "../../src/assets/monsterBall.png";
+import monsterBall from "../../src/assets/img/monsterBall-min.png";
 
 export const Pagination = memo(() => {
     const { isPokeData, pagerLimitMaxNum, setPagers, isOffSet, isCurrPage, setCurrPage } = useContext(GetFetchDataContext);
@@ -25,9 +26,13 @@ export const Pagination = memo(() => {
         setTimeout(() => window.scrollTo(0, 0), 500); // スクロールトップ
     }
 
+    /* ランダム数値が反映された背景画像データをセットする実施関数 */
+    const { ChangeBackGround } = useChangeBackGround();
+
     /* isCurrPage State を依存配列に指定して使用し、当該 State が更新される度に現在ページのシグナル移行処理を行う。※「前のページ」「次のページ」クリック時にもシグナル移行を実現するための専用メソッド */
     const { CheckCurrPager } = useCurrPagerSelect();
     useEffect(() => {
+        ChangeBackGround();
         CheckCurrPager();
     }, [isCurrPage]);
 
@@ -101,21 +106,23 @@ gap: 2%;
     
     &.pagerLists{
         position: relative;
-        background-color: #eaeaea;
+        color: #fff;
+        background-color: #333;
         border-radius: 8px;
         padding: .25em;
         
         &[data-current="true"],
         &.afterRender{
-            padding: 1em 1.25em;
-            background-color: transparent;
             font-weight: bold;
+            color: #333;
+            background-color: transparent;
+            padding: 1em 1.25em;
 
             &::before {
                 background: url(${monsterBall})no-repeat center center/cover;
                 border-radius: 50%;
                 box-shadow: 0 0 8px rgba(0, 0, 0, .5);
-                opacity: .25;
+                opacity: .5;
                 /* data-current が付いているものはスタイルを正す */
                 transform: scaleY(1) translateX(0%); 
             }
