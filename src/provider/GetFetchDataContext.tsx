@@ -19,7 +19,7 @@ type fragmentType = {
 }
 export const GetFetchDataContextFragment: FC<fragmentType> = ({ children }) => {
     /**
-     * React では参照している Context が更新された時に再レンダリングされるため、本来は機能・用途ごとにそれぞれファイルを分けて用意するべきだが今回は機能として「連携・連動している」のでまとめて記述している
+     * React では参照している Context が更新された時に（参照している各コンポーネントが）再レンダリングされるため、本来は機能・用途ごとにそれぞれ provider ファイルを分けて用意するべきだが今回は機能として「連携・連動している」のでまとめて記述している
     */
 
     /* コンテンツデータ格納用の配列 State */
