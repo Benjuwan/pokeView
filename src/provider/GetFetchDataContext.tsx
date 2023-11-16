@@ -11,6 +11,8 @@ type Default = {
     isOffSet: number;
     isCurrPage: number;
     setCurrPage: React.Dispatch<React.SetStateAction<number>>;
+    isLoading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const GetFetchDataContext = createContext({} as Default);
 
@@ -37,13 +39,17 @@ export const GetFetchDataContextFragment: FC<fragmentType> = ({ children }) => {
     /* 現在表示中のページ番号 */
     const [isCurrPage, setCurrPage] = useState<number>(1);
 
+    /* ローディング */
+    const [isLoading, setLoading] = useState<boolean>(false);
+
     return (
         <GetFetchDataContext.Provider value={{
             isPokeData, setPokeData,
             pagerLimitMaxNum, setPagerLimitMaxNum,
             isPagers, setPagers,
             isOffSet,
-            isCurrPage, setCurrPage
+            isCurrPage, setCurrPage,
+            isLoading, setLoading
         }}>
             {children}
         </GetFetchDataContext.Provider>

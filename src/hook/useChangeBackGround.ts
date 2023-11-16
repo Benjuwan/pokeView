@@ -6,7 +6,7 @@ export const useChangeBackGround = () => {
 
     const isDevMode: boolean = true; // 開発・本番環境モードの切替用Bool
 
-    const locationPath: string = location.origin; // ドメインURL
+    const locationPath: string = location.origin; // ドメインURLを取得
     const backGroundImgName: string = 'bg0'; // 画像データ名
     const imgExtend: string = '.jpg'; // 画像データの拡張子
 
@@ -22,16 +22,18 @@ export const useChangeBackGround = () => {
         randomNum: number,
         targetImgSrcNum: string,
     ) => {
-        /* ランダム数値が 0 または今表示中の画像データの場合は再処理する */
-        if (randomNum === 0 || String(`0${randomNum}`) === targetImgSrcNum) {
-            const randomNumAgain: number = Math.floor(Math.random() * 6);
-            const imgPath = _imgPath(randomNumAgain);
-            targetEl.style.setProperty('background-image', `url(${locationPath}/${imgPath})`);
-        } else {
-            const imgPath = _imgPath(randomNum);
-            targetEl.style.setProperty('background-image', `url(${locationPath}/${imgPath})`);
-        }
+        let targetRandomNum: number = randomNum;
 
+        /* ランダム数値が 0 または今表示中の画像データの場合は条件に応じて 1 を増減 */
+        if (randomNum === 0 || String(randomNum) === targetImgSrcNum) {
+            if (targetImgSrcNum === '6') {
+                targetRandomNum = randomNum - 1; // 画像データの最大数（6枚目の場合は減算）
+            } else {
+                targetRandomNum = randomNum + 1;
+            }
+        }
+        const imgPath = _imgPath(targetRandomNum);
+        targetEl.style.setProperty('background-image', `url(${locationPath}/${imgPath})`);
     }
 
     /* ランダム数値が反映された背景画像データをセットする実施関数 */
@@ -40,8 +42,8 @@ export const useChangeBackGround = () => {
         const randomNum: number = Math.floor(Math.random() * 6);
 
         if (PokeContent !== null) {
-            const backgroundImageValue: string = getComputedStyle(PokeContent).backgroundImage;
-            const targetImgSrcNum = backgroundImageValue.split('-min')[0].split('bg')[1];
+            const backgroundImageValue: string = getComputedStyle(PokeContent).backgroundImage; // getComputedStyle：引数に指定した DOM 要素から任意の CSSプロパティの値を取得
+            const targetImgSrcNum = backgroundImageValue.split('-min')[0].split(backGroundImgName)[1];
             _getRandomNumber(PokeContent, randomNum, targetImgSrcNum);
         }
     }, [isPagers]);

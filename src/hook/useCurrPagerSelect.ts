@@ -1,9 +1,4 @@
-import { useContext } from "react";
-import { GetFetchDataContext } from "../provider/GetFetchDataContext";
-
 export const useCurrPagerSelect = () => {
-    const { isCurrPage } = useContext(GetFetchDataContext);
-
     /* data-current が付いているリストから属性を取り除いて、そのリスト要素の class名を返す */
     const _hasAttrElmRemoveAttr_backToElmClassName = (
         targetEls: NodeListOf<HTMLElement>,
@@ -76,7 +71,7 @@ export const useCurrPagerSelect = () => {
     }
 
     /*【State 依存有り】isCurrPage State を依存配列に指定して使用し、当該 State が更新される度に以下の処理を行う。※「前のページ」「次のページ」クリック時にもシグナル移行を実現するための専用メソッド */
-    const CheckCurrPager = () => {
+    const CheckCurrPager = (isCurrPage: number) => {
         const pagerEls: NodeListOf<HTMLElement> = document.querySelectorAll('[data-pager]');
 
         /* data-current が付いているリストから属性を取り除いて、そのリスト要素の class名を返す */

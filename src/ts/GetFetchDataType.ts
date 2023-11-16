@@ -31,6 +31,9 @@ export type pokeLists = {
             name: string;
         };
     };
+    species?: {
+        url: string;
+    };
 }
 
 export type pokeNameLocalJsonFile = {
