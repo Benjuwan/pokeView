@@ -12,8 +12,11 @@ export const useChangeBackGround = () => {
 
     /* 開発・本番環境モード別の画像データ取得元パス */
     const _imgPath = (targetImgNum: number) => {
-        if (isDevMode) return `src/assets/img/${backGroundImgName}${targetImgNum}-min${imgExtend}`; // 開発時
-        else return `assets/img/${backGroundImgName}${targetImgNum}-min${imgExtend}`; // 本番環境時
+        if (isDevMode) {
+            return `public/img/${backGroundImgName}${targetImgNum}-min${imgExtend}`; // 開発時
+        } else {
+            return `img/${backGroundImgName}${targetImgNum}-min${imgExtend}`; // 本番環境時
+        }
     }
 
     /* 画像データをランダム表示するための数値を生成及び処理結果の画像をセット */

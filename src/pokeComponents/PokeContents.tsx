@@ -103,7 +103,7 @@ overflow-x: hidden;
   z-index: -1;
   margin: auto;
   inset: -1;
-  background: linear-gradient(to top, rgba(255, 255, 255, .8) 88%, #fff 100%);
+  background: linear-gradient(to top, rgba(255, 255, 255, .75) 88%, #fff 100%);
 }
 
 & .pokeItems{

@@ -13,8 +13,11 @@ export const useFetchPokeData = () => {
         /* pokemon.json から各ポケモンの英語名と日本語名を取得 */
         const _FetchPokeName = async () => {
             let fetchPath: string = '';
-            if (isDevMode) fetchPath = `${location.origin}/src/assets/pokemon.json`; // 開発時
-            else fetchPath = `${location.origin}/assets/pokemon.json`; // 本番環境時
+            if (isDevMode) {
+                fetchPath = `${location.origin}/public/json/pokemon.json`; // 開発時
+            } else {
+                fetchPath = `${location.origin}/json/pokemon.json`; // 本番環境時
+            }
             const respone = await fetch(fetchPath);
             const resObj: pokeNameLocalJsonFile[] = await respone.json();
             return resObj.map(resObjEl => resObjEl);
