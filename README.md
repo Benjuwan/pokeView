@@ -1,6 +1,8 @@
 # pokeView
 20231110-20231116
 
+公開サイト：[https://pokeview-pi.vercel.app/](https://pokeview-pi.vercel.app/)
+
 ## 注意事項
 デプロイ時は`useFetchPokeData.ts`と`useChangeBackGround.ts`で用意している`isDevMode`変数のbool値を変更（`false`）に切り替える。
 
@@ -9,7 +11,7 @@
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
-- `assets`ディレクトリ内の`pokemon.json`は上記記事の執筆者の`GitHub`から拝借。
+- `public/json`ディレクトリ内の`pokemon.json`は上記記事の執筆者の`GitHub`から拝借。
 
 - 背景画像はを「Bing Image Creator」使用して生成
 [商用利用不可なので注意](https://forest.watch.impress.co.jp/docs/serial/yajiuma/1543573.html)
