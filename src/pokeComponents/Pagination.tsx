@@ -4,7 +4,7 @@ import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { useChangeBackGround } from "../hook/useChangeBackGround";
 import { useCurrPagerSelect } from "../hook/useCurrPagerSelect";
 
-import monsterBall from "../../src/assets/img/monsterBall-min.png";
+import monsterBall from "../../src/assets/monsterBall-min.png";
 
 export const Pagination = memo(() => {
     const { isPokeData, pagerLimitMaxNum, setPagers, isOffSet, isCurrPage, setCurrPage } = useContext(GetFetchDataContext);
@@ -122,7 +122,7 @@ gap: 2%;
                 background: url(${monsterBall})no-repeat center center/cover;
                 border-radius: 50%;
                 box-shadow: 0 0 8px rgba(0, 0, 0, .5);
-                opacity: .5;
+                opacity: .75;
                 /* data-current が付いているものはスタイルを正す */
                 transform: scaleY(1) translateX(0%); 
             }
