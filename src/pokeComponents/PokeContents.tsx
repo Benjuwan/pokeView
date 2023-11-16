@@ -4,27 +4,27 @@ import { pokeLists } from "../ts/GetFetchDataType";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { Pagination } from "./Pagination";
 import { BtnComponent } from "./BtnComponent";
-import { useViewImges } from "../hook/useViewImges";
+import { LoadingEl } from "./LoadingEl";
+import { PokeItems } from "./PokeItems";
 import { usePager } from "../hook/usePager";
 import { useFetchPokeData } from "../hook/useFetchPokeData";
 
-import backGroundImg from "../../src/assets/img/bg01-min.jpg";
-
 export const PokeContents = memo(() => {
   /* 各種 Context */
-  const { isPokeData, pagerLimitMaxNum, isPagers, isOffSet } = useContext(GetFetchDataContext);
+  const { isPokeData, pagerLimitMaxNum, isPagers, isOffSet, isLoading } = useContext(GetFetchDataContext);
 
   /* 各種 カスタムフック */
   const { FetchPokeData } = useFetchPokeData(); // コンテンツデータの取得機能
-  const { ViewImges } = useViewImges(); // 画像のモーダル表示機能
   const { prevPagerPages, nextPagerPages } = usePager(); // ページャー機能
 
   /* ポケモンのデータを取得 */
-  useEffect(() => FetchPokeData(), []);
+  useEffect(() => FetchPokeData('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'), []);
 
   /* 最終ページの判定用 State（PokeContent の flexBox の調整で使用） */
   const [isFinalPage, setFinalPage] = useState<boolean>(false);
 
+
+  
   /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための配列 State */
   const [isPagerContents, setPagerContents] = useState<pokeLists[]>([]);
   /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための処理 */
@@ -43,6 +43,7 @@ export const PokeContents = memo(() => {
     if (pagerLimitMaxNum - isPagers <= isOffSet) setFinalPage(!isFinalPage);
     else setFinalPage(false);
 
+    /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための処理 */
     if (typeof pagerLimitMaxNum !== "undefined") {
       const limitBorderLine: number = pagerLimitMaxNum - isOffSet;
       if (isPagers >= limitBorderLine) {
@@ -55,48 +56,39 @@ export const PokeContents = memo(() => {
   }, [isPokeData, isPagers]); // 依存配列 コンテンツデータの取得時・ページャー変更時
 
   return (
-    <PokeContent className="PokeContent">
-      <div className={`pokeItems ${isFinalPage ? 'isFinalPage' : 'normal'}`}>
-        <p id="pokeNum">{pagerLimitMaxNum} pokemons</p>
-        {isPagerContents.map((pokeData, i) => (
-          <div className="pokeContents" key={i}>
-            <h2><span>{pokeData.id}</span>{pokeData.name}</h2>
-            <div className="pokeImg" onClick={(imgElm: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-              ViewImges(imgElm.currentTarget);
-            }}>
-              <img className="gameArt" src={pokeData.img} alt={pokeData.name} />
-              <div className="officialArtwork">
-                <img className="officialArt" src={pokeData.officialImg} alt={`${pokeData.name}のオフィシャル画像`} />
-              </div>
-            </div>
-            {/* <p>{isPokeGenera[i]}</p> */}
-            {/* <p>{isPokeFlavorText[i][0]}</p> */}
+    <>
+      {isLoading ? <LoadingEl /> :
+        <PokeContent className="PokeContent">
+          <div className={`pokeItems ${isFinalPage ? 'isFinalPage' : 'normal'}`}>
+            <p id="pokeNum">{pagerLimitMaxNum} pokemons</p>
+            {isPagerContents.map((pokeData, i) => (
+              <PokeItems pokeData={pokeData} index={i} />
+            ))}
+            {isPokeData.length > 0 &&
+              <>
+                <Pagination />
+                <div className="ctrlBtns">
+                  <BtnComponent btnTxt="前のページ"
+                    disabledBool={isPagers <= 0}
+                    classNameTxt="Prev"
+                    ClickEvent={prevPagerPages}
+                  />
+                  <BtnComponent btnTxt="次のページ"
+                    disabledBool={isPagers >= (pagerLimitMaxNum - isOffSet)}
+                    classNameTxt="Next"
+                    ClickEvent={nextPagerPages}
+                  />
+                </div>
+              </>
+            }
           </div>
-        ))}
-        {isPokeData.length > 0 &&
-          <>
-            <Pagination />
-            <div className="ctrlBtns">
-              <BtnComponent btnTxt="前のページ"
-                disabledBool={isPagers <= 0}
-                classNameTxt="Prev"
-                ClickEvent={prevPagerPages}
-              />
-              <BtnComponent btnTxt="次のページ"
-                disabledBool={isPagers >= (pagerLimitMaxNum - isOffSet)}
-                classNameTxt="Next"
-                ClickEvent={nextPagerPages}
-              />
-            </div>
-          </>
-        }
-      </div>
-    </PokeContent>
+        </PokeContent>
+      }
+    </>
   );
 });
 
 const PokeContent = styled.div`
-background-image: url(${backGroundImg});
 background-repeat: no-repeat;
 background-size: cover;
 position: relative;
@@ -138,80 +130,6 @@ overflow-x: hidden;
     width: 100%;
     font-size: 12px;
     margin-bottom: 1em;
-  }
-
-  & .pokeContents{
-    width: 45%;
-    font-size: 1.4rem;
-    text-align: center;
-    /* https://neumorphism.io/#ffffff */
-    box-shadow: inset 8px 8px 24px #e6e6e6, inset -8px -8px 24px #ffffff;
-    padding: 1em;
-    border-radius: 8px;
-    margin-bottom: 5%;
-    
-    @media screen and (min-width: 700px) {
-      font-size: 14px;
-      width: clamp(80px, 100%, 120px);
-    }
-
-    & h2 {
-      font-size: 1.6rem;
-      font-weight: normal;
-      text-align: center;
-
-      & span {
-        display: block;
-        font-size: 1.2rem;
-      }
-
-    
-      @media screen and (min-width: 700px) {
-        font-size: 16px;
-
-        & span {
-          font-size: 12px;
-        }
-      }
-    }
-
-    & .pokeImg {
-      & .gameArt {
-        cursor: pointer;
-        animation: charMov 1s infinite alternate-reverse;
-        animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-
-        @keyframes charMov {
-          0%{transform: scaleY(.85) translateY(4px)}
-          100%{transform:scaleY(1) translateY(0px)}
-        }
-      }
-
-      & .officialArtwork{
-        position: fixed;
-        margin: auto;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        background-color: rgba(0, 0, 0, .75);
-        opacity: 0;
-        visibility: hidden;
-        z-index: 1;
-
-        & .officialArt{
-          background-color: #fff;
-          border-radius: 4px;
-          width: clamp(160px, calc(100vw/2), 480px);
-        }
-      }
-
-      &.OnView{
-        & .officialArtwork{
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-    }
   }
 
   & .ctrlBtns{

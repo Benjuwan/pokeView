@@ -1,16 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { pokeAry, pokeFetchData, pokeLists, pokeNameLocalJsonFile } from "../ts/GetFetchDataType";
 
 export const useFetchPokeData = () => {
-    const { setPokeData, setPagerLimitMaxNum } = useContext(GetFetchDataContext);
+    const { setPokeData, setPagerLimitMaxNum, setLoading } = useContext(GetFetchDataContext);
 
     const isDevMode: boolean = true; // 開発・本番環境モードの切替用Bool
 
-    const [isPokeGenera, setPokeGenera] = useState<string[]>([]);
-    const [isPokeFlavorText, setPokeFlavorText] = useState<string[]>([]);
+    const FetchPokeData = (url: string) => {
+        setLoading(true); // ローディング開始
 
-    const FetchPokeData = () => {
         /* pokemon.json から各ポケモンの英語名と日本語名を取得 */
         const _FetchPokeName = async () => {
             let fetchPath: string = '';
@@ -40,7 +39,7 @@ export const useFetchPokeData = () => {
         const fetchPokeData = async () => {
             const FetchPokeName = await _FetchPokeName(); // 各ポケモンの英語・日本語名が格納されている配列
 
-            const respone = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0');
+            const respone = await fetch(url);
             const resObj: pokeFetchData = await respone.json();
             const resObjResult: pokeAry[] = resObj.results;
             setPagerLimitMaxNum((_prevPagerLimitMaxNum) => resObj.count); // 上限値の設定
@@ -49,35 +48,38 @@ export const useFetchPokeData = () => {
                 fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`).then(res => res.json()).then((pokeData: pokeLists) => {
                     /* then((pokeData: pokeLists)：配列（オブジェクト）の中身として指定 */
 
-                    // fetch(pokeData.species.url).then(res => res.json()).then(speciesUrl => {
-                    //   // console.log(speciesUrl.genera[0].genus);
-                    //   setPokeGenera((_prevPokeGenera) => [...isPokeGenera, speciesUrl.genera[0].genus]);
+                    if (pokeData.species !== undefined) {
+                        fetch(pokeData.species.url).then(res => res.json()).then(speciesUrl => {
+                            /* flavorTextAry：各ポケモンのシリーズごとの紹介文章を格納した配列（日本語データのみを取得している）*/
+                            const flavorTextAry = speciesUrl.flavor_text_entries.filter((flavorText: {
+                                flavor_text: string;
+                                language: {
+                                    name: string;
+                                };
+                            }) => {
+                                /* 日本語データのみを取得 */
+                                if (flavorText.language.name === 'ja') {
+                                    return flavorText.flavor_text;
+                                }
+                            });
 
-                    //   const flavorTextAry = speciesUrl.flavor_text_entries.filter((flavorText: {
-                    //     flavor_text: string;
-                    //     language: {
-                    //       name: string;
-                    //     };
-                    //   }) => {
-                    //     if (flavorText.language.name === 'ja') {
-                    //       // console.log(speciesUrl.genera[0].genus);
-                    //       return flavorText.flavor_text;
-                    //     }
-                    //   });
-                    //   // console.log(flavorTextAry);
-                    //   setPokeFlavorText((_prevPokeFlavorText) => [...isPokeFlavorText, flavorTextAry]);
-                    // });
+                            /* ポケモン名を「英語名 → 日本語名」にする */
+                            _replacePokeName_enToja(FetchPokeName, pokeData);
 
-                    /* ポケモン名を「英語名 → 日本語名」にする */
-                    _replacePokeName_enToja(FetchPokeName, pokeData);
+                            /* 取得する各種データのオブジェクトとデータの反映 */
+                            const newList: pokeLists = {
+                                id: pokeData.id,
+                                name: pokeData.name,
+                                img: pokeData.sprites?.front_default,
+                                officialImg: pokeData.sprites?.other["official-artwork"].front_default,
+                                type: speciesUrl.genera[0].genus,
+                                flavor_text: flavorTextAry[0]
+                            }
+                            setPokeData((_prevPokeData) => [..._prevPokeData, newList]);
 
-                    const newList: pokeLists = {
-                        id: pokeData.id,
-                        name: pokeData.name,
-                        img: pokeData.sprites?.front_default,
-                        officialImg: pokeData.sprites?.other["official-artwork"].front_default,
+                            setLoading(false); // ローディング完了
+                        });
                     }
-                    setPokeData((_prevPokeData) => [..._prevPokeData, newList]);
                 });
             });
         }

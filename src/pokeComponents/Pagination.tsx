@@ -33,7 +33,7 @@ export const Pagination = memo(() => {
     const { CheckCurrPager } = useCurrPagerSelect();
     useEffect(() => {
         ChangeBackGround();
-        CheckCurrPager();
+        CheckCurrPager(isCurrPage);
     }, [isCurrPage]);
 
     /* オフセット数に基づいた計算を通してページネーション用の各ページャー項目のページを設定する */
