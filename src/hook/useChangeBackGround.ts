@@ -30,11 +30,13 @@ export const useChangeBackGround = () => {
         /* ランダム数値が 0 または今表示中の画像データの場合は条件に応じて 1 を増減 */
         if (randomNum === 0 || String(randomNum) === targetImgSrcNum) {
             if (targetImgSrcNum === '6') {
-                targetRandomNum = randomNum - 1; // 画像データの最大数（6枚目の場合は減算）
+                if (randomNum === 0) targetRandomNum = parseInt(targetImgSrcNum) - 1; // 5
+                targetRandomNum = randomNum - 1; // 画像データの最大数（6枚目の場合は減算 = 5）
             } else {
                 targetRandomNum = randomNum + 1;
             }
         }
+        if (targetRandomNum <= 0) targetRandomNum + 1; // 負の値になった場合の回避策
         const imgPath = _imgPath(targetRandomNum);
         targetEl.style.setProperty('background-image', `url(${locationPath}/${imgPath})`);
     }
