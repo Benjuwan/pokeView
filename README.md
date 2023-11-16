@@ -10,3 +10,6 @@
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
 - `assets`ディレクトリ内の`pokemon.json`は上記記事の執筆者の`GitHub`から拝借。
+
+- 背景画像はを「Bing Image Creator」使用して生成
+[商用利用不可なので注意](https://forest.watch.impress.co.jp/docs/serial/yajiuma/1543573.html)
