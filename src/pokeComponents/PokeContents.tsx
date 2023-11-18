@@ -1,10 +1,11 @@
-import { memo, useState, useEffect, useContext, useCallback } from "react";
+import { memo, useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { pokeLists } from "../ts/GetFetchDataType";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { Pagination } from "./Pagination";
 import { BtnComponent } from "./BtnComponent";
 import { LoadingEl } from "./LoadingEl";
+import { FilterPokeName } from "./FilterPokeName";
 import { PokeItems } from "./PokeItems";
 import { usePager } from "../hook/usePager";
 import { useFetchPokeData } from "../hook/useFetchPokeData";
@@ -24,18 +25,17 @@ export const PokeContents = memo(() => {
   const [isFinalPage, setFinalPage] = useState<boolean>(false);
 
 
-  
   /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための配列 State */
   const [isPagerContents, setPagerContents] = useState<pokeLists[]>([]);
   /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための処理 */
-  const setPagerContentsFrag = useCallback((
+  const setPagerContentsFrag = (
     fragStart: number = isPagers,
     fragFinish: number = isOffSet
   ) => {
     const shallowCopy: pokeLists[] = [...isPokeData].sort((aheadElm, behindElm) => aheadElm.id - behindElm.id); // ポケモンの id 順にソート（StrictMode true では大体 id：60～70 番台までのポケモンが二重読込される）
     const splicedContents: pokeLists[] = shallowCopy.splice(fragStart, fragFinish);
     setPagerContents((_prevPagerContents) => splicedContents);
-  }, [isPokeData, isPagers]); // 依存配列 コンテンツデータの取得時・ページャー変更時
+  }
 
   /* ページャー処理 */
   useEffect(() => {
@@ -61,6 +61,7 @@ export const PokeContents = memo(() => {
         <PokeContent className="PokeContent">
           <div className={`pokeItems ${isFinalPage ? 'isFinalPage' : 'normal'}`}>
             <p id="pokeNum">{pagerLimitMaxNum} pokemons</p>
+            <FilterPokeName />
             {isPagerContents.map((pokeData, i) => (
               <PokeItems pokeData={pokeData} index={i} />
             ))}
