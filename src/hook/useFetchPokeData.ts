@@ -29,10 +29,10 @@ export const useFetchPokeData = () => {
             originName: pokeLists // 配列（オブジェクト）の中身として指定
         ) => {
             targetAry.forEach(pokeName => {
-                /* 置換処理に必要な文字列マッチングを行うために、それぞれ大文字にする */
+                /* 置換処理に必要な文字列マッチングを行うために、それぞれ大文字（toLowerCase：小文字でもok）にする */
                 const UpperCase_jsonPokeName_en: string = pokeName.en.toUpperCase();
                 const UpperCase_fetchPokeName: string = originName.name.toUpperCase();
-                if (UpperCase_jsonPokeName_en.match(UpperCase_fetchPokeName)) {
+                if (UpperCase_jsonPokeName_en === UpperCase_fetchPokeName) {
                     originName.name = pokeName.ja;
                 }
             });
@@ -73,6 +73,8 @@ export const useFetchPokeData = () => {
                             const newList: pokeLists = {
                                 id: pokeData.id,
                                 name: pokeData.name,
+                                height: pokeData.height,
+                                weight: pokeData.weight,
                                 img: pokeData.sprites?.front_default,
                                 officialImg: pokeData.sprites?.other["official-artwork"].front_default,
                                 type: speciesUrl.genera[0].genus,

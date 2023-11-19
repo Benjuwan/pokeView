@@ -4,31 +4,35 @@ import { pokeLists } from "../ts/GetFetchDataType";
 import { useViewImges } from "../hook/useViewImges";
 
 type pokeItemsType = {
-    pokeData: pokeLists,
-    index: number
+  pokeData: pokeLists,
+  index: number
 }
 
 export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
-    const { ViewImges } = useViewImges(); // 画像のモーダル表示機能
+  const { ViewImges } = useViewImges(); // 画像のモーダル表示機能
 
-    return (
-        <PokeContents className="pokeContents" key={index}>
-            <h2><span>{pokeData.id}</span>{pokeData.name}</h2>
-            <div className="pokeImg" onClick={(imgElm: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-                ViewImges(imgElm.currentTarget);
-            }}>
-                <img className="gameArt" src={pokeData.img} alt={pokeData.name} />
-                <div className="officialArtwork">
-                    <img className="officialArt" src={pokeData.officialImg} alt={`${pokeData.name}のオフィシャル画像`} />
-                    <div className="details">
-                        <p className="name">{pokeData.name}</p>
-                        <p className="type">{pokeData.type}</p>
-                        <p className="flavorText">{pokeData.flavor_text?.flavor_text}</p>
-                    </div>
-                </div>
+  return (
+    <PokeContents className="pokeContents" key={index}>
+      <h2><span>{pokeData.id}</span>{pokeData.name}</h2>
+      <div className="pokeImg" onClick={(imgElm: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        ViewImges(imgElm.currentTarget);
+      }}>
+        <img className="gameArt" src={pokeData.img} alt={pokeData.name} />
+        <div className="officialArtwork">
+          <img className="officialArt" src={pokeData.officialImg} alt={`${pokeData.name}のオフィシャル画像`} />
+          <div className="details">
+            <p className="name">{pokeData.name}</p>
+            <p className="type">{pokeData.type}</p>
+            <div className="weiheight">
+              <p>高さ：{String(pokeData.height).toLocaleString()}m</p>
+              <p>重さ：{String(pokeData.weight).toLocaleString()}kg</p>
             </div>
-        </PokeContents>
-    );
+            <p className="flavorText">{pokeData.flavor_text?.flavor_text}</p>
+          </div>
+        </div>
+      </div>
+    </PokeContents>
+  );
 });
 
 const PokeContents = styled.div`
@@ -108,6 +112,11 @@ margin-bottom: 5%;
           & .name{
             font-size: 1.6rem;
             font-weight: bold;
+          }
+
+          & .weiheight{
+            display: flex;
+            gap: 5%;
           }
 
           & .flavorText{
