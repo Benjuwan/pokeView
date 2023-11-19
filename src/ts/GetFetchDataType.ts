@@ -14,6 +14,8 @@ export type pokeFetchData = {
 export type pokeLists = {
     id: number;
     name: string;
+    height: number;
+    weight: number;
     img: string | undefined;
     officialImg: string | undefined;
     sprites?: {
