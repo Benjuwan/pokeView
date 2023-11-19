@@ -40,7 +40,8 @@ export const FilterPokeName = memo(() => {
 
             if (filterPokeName.length === 0) {
                 alert(`探そうとしている「${isTargetPokeName}」は存在しません`);
-                return;
+                setTargetPokeName((_prevPokeName) => '');
+                return; // 処理終了
             }
             setFilterPoke((_prevFilterPoke) => filterPokeName);
             setTargetPokeName((_prevPokeName) => '');
