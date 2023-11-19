@@ -8,6 +8,34 @@ type pokeItemsType = {
   index: number
 }
 
+/* 高さの表記調整 */
+const adjustHeight = (
+  targetHeightNum: number
+) => {
+  const targetHeight: string = String(targetHeightNum);
+  if (targetHeight.length === 1) {
+    /* 1桁の場合は xxx.0 の形にして反転（0.xxx）させる */
+    return String(targetHeightNum.toFixed(1)).split('').reverse().join('');
+  } else {
+    return targetHeight.split('').join('.');
+  }
+}
+
+/* 重さの表記調整 */
+const adjustWeight = (
+  targetWeightNum: number
+) => {
+  const targetHeight: string = String(targetWeightNum);
+  if (targetHeight.length === 1) {
+    /* 1桁の場合は xxx.0 の形にして反転（0.xxx）させる */
+    return String(targetWeightNum.toFixed(1)).split('').reverse().join('');
+  } else {
+    const shallowCopy: string[] = [...String(targetWeightNum)]; // 配列に変換する
+    shallowCopy.splice(-1, 0, '.'); // 末尾の文字列の前に . を追加する
+    return shallowCopy.join(''); // 文字列にして返す
+  }
+}
+
 export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
   const { ViewImges } = useViewImges(); // 画像のモーダル表示機能
 
@@ -24,8 +52,8 @@ export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
             <p className="name">{pokeData.name}</p>
             <p className="type">{pokeData.type}</p>
             <div className="weiheight">
-              <p>高さ：{String(pokeData.height).toLocaleString()}m</p>
-              <p>重さ：{String(pokeData.weight).toLocaleString()}kg</p>
+              <p>高さ：{adjustHeight(pokeData.height)}m</p>
+              <p>重さ：{adjustWeight(pokeData.weight)}kg</p>
             </div>
             <p className="flavorText">{pokeData.flavor_text?.flavor_text}</p>
           </div>
