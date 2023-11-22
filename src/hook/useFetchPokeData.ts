@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
-import { pokeAry, pokeFetchData, pokeLists, pokeNameLocalJsonFile } from "../ts/GetFetchDataType";
+import { pokeAry, pokeFetchData, pokeLists, speciesItems, pokeNameLocalJsonFile } from "../ts/GetFetchDataType";
 
 export const useFetchPokeData = () => {
     const { setPokeData, setPagerLimitMaxNum, setLoading } = useContext(GetFetchDataContext);
@@ -51,20 +51,19 @@ export const useFetchPokeData = () => {
                 fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`).then(res => res.json()).then((pokeData: pokeLists) => {
                     /* then((pokeData: pokeLists)：配列（オブジェクト）の中身として指定 */
 
-                    if (pokeData.species !== undefined) {
-                        fetch(pokeData.species.url).then(res => res.json()).then(speciesUrl => {
+                    if (typeof pokeData.species !== "undefined") {
+                        fetch(pokeData.species.url).then(res => res.json()).then(speciesItems => {
+                            /* pokeData のように「then((pokeData: pokeLists) ...」の記述で型注釈ができなかったので、speciesItems: any に型を付与するため変数（speciesData）を生成して、speciesData で処理を進める */
+                            const speciesData: speciesItems = speciesItems;
+
                             /* flavorTextAry：各ポケモンのシリーズごとの紹介文章を格納した配列（日本語データのみを取得している）*/
-                            const flavorTextAry = speciesUrl.flavor_text_entries.filter((flavorText: {
-                                flavor_text: string;
-                                language: {
-                                    name: string;
-                                };
-                            }) => {
+                            const flavorTextAry: speciesItems[] = speciesData.flavor_text_entries.filter(flavorText => {
                                 /* 日本語データのみを取得 */
                                 if (flavorText.language.name === 'ja') {
                                     return flavorText.flavor_text;
                                 }
                             });
+                            // console.log(flavorTextAry); // 配列の index番号の違いで verごとの紹介文が取得できる。現状は[0]で初期verの紹介文
 
                             /* ポケモン名を「英語名 → 日本語名」にする */
                             _replacePokeName_enToja(FetchPokeName, pokeData);
@@ -77,7 +76,7 @@ export const useFetchPokeData = () => {
                                 weight: pokeData.weight,
                                 img: pokeData.sprites?.front_default,
                                 officialImg: pokeData.sprites?.other["official-artwork"].front_default,
-                                type: speciesUrl.genera[0].genus,
+                                type: speciesData.genera[0].genus,
                                 flavor_text: flavorTextAry[0]
                             }
                             setPokeData((_prevPokeData) => [..._prevPokeData, newList]);
