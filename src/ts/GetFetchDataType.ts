@@ -27,14 +27,26 @@ export type pokeLists = {
         };
     };
     type?: string;
-    flavor_text?: {
-        flavor_text: string;
-        language: {
-            name: string;
-        };
-    };
+    flavor_text?: speciesItems;
     species?: {
         url: string;
+    };
+}
+
+export type speciesItems = {
+    genera: {
+        [0]: {
+            genus: string;
+        }
+    };
+    flavor_text?: string; // データフェッチ処理後のオブジェクトの内容（求めている各ポケモンの紹介文情報）となる flavor_text
+    flavor_text_entries: {
+        filter(arg0: (flavorText: {
+            flavor_text: string; // データフェッチ処理に必要な引数用の flavor_text
+            language: {
+                name: string;
+            };
+        }) => string | undefined): speciesItems[];
     };
 }
 
