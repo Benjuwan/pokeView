@@ -5,7 +5,8 @@ import { useViewImges } from "../hook/useViewImges";
 
 type pokeItemsType = {
   pokeData: pokeLists,
-  index: number
+  index: number,
+  key?: number
 }
 
 /* 重さ・高さの表記調整 */
@@ -37,12 +38,18 @@ export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
           <img className="officialArt" src={pokeData.officialImg} alt={`${pokeData.name}のオフィシャル画像`} />
           <div className="details">
             <p className="name">{pokeData.name}</p>
-            <p className="type">{pokeData.type}</p>
+            {pokeData.type ?
+              <p className="type">{pokeData.type}</p> :
+              <p className="type">---今はまだ <a href="https://pokeapi.co/" target="_blank">「Pokémon API」</a> から「タイプ」のデータがありません。</p>
+            }
             <div className="weiheight">
               <p>高さ：{adjustWeiHeight(pokeData.height)}m</p>
               <p>重さ：{adjustWeiHeight(pokeData.weight)}kg</p>
             </div>
-            <p className="flavorText">{pokeData.flavor_text?.flavor_text}</p>
+            {pokeData.flavor_text?.flavor_text ?
+              <p className="flavorText">{pokeData.flavor_text?.flavor_text}</p> :
+              <p className="flavorText">---今はまだ <a href="https://pokeapi.co/" target="_blank">「Pokémon API」</a> から「説明文」のデータがありません。</p>
+            }
           </div>
         </div>
       </div>

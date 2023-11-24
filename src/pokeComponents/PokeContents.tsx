@@ -63,7 +63,7 @@ export const PokeContents = memo(() => {
             <p id="pokeNum">{pagerLimitMaxNum} pokemons</p>
             <FilterPokeName />
             {isPagerContents.map((pokeData, i) => (
-              <PokeItems pokeData={pokeData} index={i} />
+              <PokeItems pokeData={pokeData} index={i} key={i} />
             ))}
             {isPokeData.length > 0 &&
               <>
