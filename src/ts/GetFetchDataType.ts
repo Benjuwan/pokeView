@@ -26,7 +26,7 @@ export type pokeLists = {
             };
         };
     };
-    type?: string;
+    type?: string | null;
     flavor_text?: speciesItems;
     species?: {
         url: string;
@@ -35,9 +35,15 @@ export type pokeLists = {
 
 export type speciesItems = {
     genera: {
+        length: number;
         [0]: {
             genus: string;
         }
+    };
+    names: {
+        [0]: {
+            name: string;
+        };
     };
     flavor_text?: string; // データフェッチ処理後のオブジェクトの内容（求めている各ポケモンの紹介文情報）となる flavor_text
     flavor_text_entries: {

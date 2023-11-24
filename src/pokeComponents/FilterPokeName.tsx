@@ -64,7 +64,7 @@ export const FilterPokeName = memo(() => {
                     {
                         isFilterPoke.map((filterPokeData, i) => (
                             /* JSX での map 処理は {} ではなく () でネスト */
-                            <PokeItems pokeData={filterPokeData} index={i} />
+                            <PokeItems pokeData={filterPokeData} index={i} key={i} />
                         ))
                     }
                 </div>
