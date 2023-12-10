@@ -10,7 +10,7 @@ export const useFetchPokeData = () => {
 
         /* ポケモンデータを取得 */
         const fetchPokeData = async () => {
-            const respone = await fetch(url);
+            const respone = await fetch(url, { cache: "no-store" });
             const resObj: pokeFetchData = await respone.json();
             const resObjResult: pokeAry[] = resObj.results;
             setPagerLimitMaxNum((_prevPagerLimitMaxNum) => resObj.count); // 上限値の設定
