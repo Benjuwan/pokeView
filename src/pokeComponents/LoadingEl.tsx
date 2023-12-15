@@ -1,11 +1,7 @@
-import { memo, useContext, useEffect } from "react";
+import { memo, useEffect } from "react";
 import styled from "styled-components";
-import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 
 export const LoadingEl = memo(() => {
-    /* 各種 Context */
-    const { isLoading } = useContext(GetFetchDataContext);
-
     /* ローディングテキストのアニメーション演出の準備と補助 */
     useEffect(() => {
         const isLoadingEl: HTMLParagraphElement | null = document.querySelector('.isLoading');
@@ -20,7 +16,7 @@ export const LoadingEl = memo(() => {
         ) {
             isLoadingEl.innerHTML = loadingWords?.join('');
         }
-    }, [isLoading]);
+    }, []);
 
     return <LoadingElm className="isLoading">...データを取得中</LoadingElm>
 });

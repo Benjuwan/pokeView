@@ -131,8 +131,8 @@ gap: 2%;
         &::before {
             display: block;
             content: "";
-            width: 100%;
-            height: 100%;
+            width: 4.4rem;
+            height: 4.4rem;
             border-radius: 8px;
             position: absolute;
             z-index: -1;
@@ -140,6 +140,11 @@ gap: 2%;
             inset: 0;
             /* 縮小 → 拡大を実現するため scaleY(.5) で縦を縮めておく */
             transform: scaleY(.5) translateX(0%);
+
+            @media screen and (min-width: 1025px) {
+                width: 44px;
+                height: 44px;
+            }
         }
         
         &.prev{
