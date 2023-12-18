@@ -5,11 +5,11 @@ import { pokeAry, pokeFetchData, pokeLists, speciesItems } from "../ts/GetFetchD
 export const useFetchPokeData = () => {
     const { setPokeData, setPagerLimitMaxNum, setLoading } = useContext(GetFetchDataContext);
 
-    const FetchPokeData = (url: string) => {
+    const FetchPokeData: (url: string) => void = (url: string) => {
         setLoading(true); // ローディング開始
 
         /* ポケモンデータを取得 */
-        const fetchPokeData = async () => {
+        const fetchPokeData: () => Promise<void> = async () => {
             const respone = await fetch(url, { cache: "no-store" });
             const resObj: pokeFetchData = await respone.json();
             const resObjResult: pokeAry[] = resObj.results;
