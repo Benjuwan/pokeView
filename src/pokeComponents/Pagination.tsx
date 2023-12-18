@@ -105,6 +105,8 @@ gap: 2%;
     margin-bottom: .5em;
     
     &.pagerLists{
+        display: grid;
+        place-content: center;
         position: relative;
         color: #fff;
         background-color: #333;
@@ -113,8 +115,6 @@ gap: 2%;
         
         &[data-current="true"],
         &.afterRender{
-            display: grid;
-            place-content: center;
             font-weight: bold;
             color: #333;
             background-color: transparent;
