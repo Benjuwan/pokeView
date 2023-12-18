@@ -10,7 +10,6 @@ export type pokeFetchData = {
     results: pokeAry[];
 }
 
-
 export type pokeLists = {
     id: number;
     name: string;

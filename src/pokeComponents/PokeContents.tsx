@@ -24,18 +24,20 @@ export const PokeContents = memo(() => {
   /* 最終ページの判定用 State（PokeContent の flexBox の調整で使用） */
   const [isFinalPage, setFinalPage] = useState<boolean>(false);
 
-
   /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための配列 State */
   const [isPagerContents, setPagerContents] = useState<pokeLists[]>([]);
   /* オフセット数（isOffSet）区切りのコンテンツデータに加工するための処理 */
-  const setPagerContentsFrag = (
+  const setPagerContentsFrag: (
+    fragStart?: number,
+    fragFinish?: number
+  ) => void = (
     fragStart: number = isPagers,
     fragFinish: number = isOffSet
   ) => {
-    const shallowCopy: pokeLists[] = [...isPokeData].sort((aheadElm, behindElm) => aheadElm.id - behindElm.id); // ポケモンの id 順にソート（StrictMode true では大体 id：60～70 番台までのポケモンが二重読込される）
-    const splicedContents: pokeLists[] = shallowCopy.splice(fragStart, fragFinish);
-    setPagerContents((_prevPagerContents) => splicedContents);
-  }
+      const shallowCopy: pokeLists[] = [...isPokeData].sort((aheadElm, behindElm) => aheadElm.id - behindElm.id); // ポケモンの id 順にソート（StrictMode true では大体 id：60～70 番台までのポケモンが二重読込される）
+      const splicedContents: pokeLists[] = shallowCopy.splice(fragStart, fragFinish);
+      setPagerContents((_prevPagerContents) => splicedContents);
+    }
 
   /* ページャー処理 */
   useEffect(() => {

@@ -9,23 +9,23 @@ type pokeItemsType = {
   key?: number
 }
 
-/* 重さ・高さの表記調整 */
-const adjustWeiHeight = (
-  targetHeightNum: number
-) => {
-  const targetHeight: string = String(targetHeightNum);
-  if (targetHeight.length === 1) {
-    /* 1桁の場合は xxx.0 の形にして反転（0.xxx）させる */
-    return String(targetHeightNum.toFixed(1)).split('').reverse().join('');
-  } else {
-    const shallowCopy: string[] = [...String(targetHeightNum)]; // 配列に変換する
-    shallowCopy.splice(-1, 0, '.'); // 末尾の文字列の前に . を追加する
-    return shallowCopy.join(''); // 文字列にして返す
-  }
-}
-
 export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
   const { ViewImges } = useViewImges(); // 画像のモーダル表示機能
+
+  /* 重さ・高さの表記調整 */
+  const adjustWeiHeight: (targetHeightNum: number) => string = (
+    targetHeightNum: number
+  ) => {
+    const targetHeight: string = String(targetHeightNum);
+    if (targetHeight.length === 1) {
+      /* 1桁の場合は xxx.0 の形にして反転（0.xxx）させる */
+      return String(targetHeightNum.toFixed(1)).split('').reverse().join('');
+    } else {
+      const shallowCopy: string[] = [...String(targetHeightNum)]; // 配列に変換する
+      shallowCopy.splice(-1, 0, '.'); // 末尾の文字列の前に . を追加する
+      return shallowCopy.join(''); // 文字列にして返す
+    }
+  }
 
   return (
     <PokeContents className="pokeContents" key={index}>

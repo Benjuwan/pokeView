@@ -21,15 +21,13 @@ export const FilterPokeName = memo(() => {
 
     /* 入力内容の State と反映させるための関数 */
     const [isTargetPokeName, setTargetPokeName] = useState<string>('');
-    const setPokeName = (
-        inputTxt: string
-    ) => {
+    const setPokeName: (inputTxt: string) => void = (inputTxt: string) => {
         const targetPokeName: string = inputTxt;
         setTargetPokeName((_prevPokeName) => targetPokeName);
     }
 
     /* 検索結果（入力内容）を反映させる関数 */
-    const filterPokeName = () => {
+    const filterPokeName: () => void = () => {
         setFilterPoke((_prevFilterPoke) => []);
         if (isTargetPokeName.length > 0) {
             const filterPokeName = isPokeData.filter(pokeData => {

@@ -16,7 +16,7 @@ export const Pagination = memo(() => {
     const [isPagerNum, setPagerNum] = useState<number[]>([]);
 
     /* 各ページャー項目の data-pager の値に準じたページを表示及びページ番号を変更 */
-    const setPaginationNum = (
+    const setPaginationNum: (btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>, pagerEl: number) => void = (
         btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>,
         pagerEl: number
     ) => {
@@ -37,7 +37,7 @@ export const Pagination = memo(() => {
     }, [isCurrPage]);
 
     /* オフセット数に基づいた計算を通してページネーション用の各ページャー項目のページを設定する */
-    const basedonOffsetNum_setPagerNum = () => {
+    const basedonOffsetNum_setPagerNum: () => void = () => {
         /* 初期表示時（isPagination が 0件）という条件を指定して再レンダリングに伴う倍数増加（下記処理実行）を防止 */
         if (isPagination.length <= 0) {
             const srcAry: number[] = [];
@@ -113,10 +113,12 @@ gap: 2%;
         
         &[data-current="true"],
         &.afterRender{
+            display: grid;
+            place-content: center;
             font-weight: bold;
             color: #333;
             background-color: transparent;
-            padding: 1em 1.25em;
+            padding: 1em 1.5em;
 
             &::before {
                 background: url(${monsterBall})no-repeat center center/cover;

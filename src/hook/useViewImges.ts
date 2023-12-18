@@ -1,5 +1,5 @@
 export const useViewImges = () => {
-    const ViewImges = (imgEl: HTMLDivElement) => {
+    const ViewImges: (imgEl: HTMLDivElement) => void = (imgEl: HTMLDivElement) => {
         if (!imgEl.classList.contains('OnView')) {
             imgEl.classList.add('OnView');
         } else {
