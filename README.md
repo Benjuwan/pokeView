@@ -3,6 +3,14 @@
 
 公開サイト：[https://pokeview-pi.vercel.app/](https://pokeview-pi.vercel.app/)
 
+***
+
+![pokeview-1](https://github.com/Benjuwan/pokeView/assets/90702379/414aafcd-6ef1-4590-81f5-2f0799c458c9)
+
+***
+
+![pokeview-2](https://github.com/Benjuwan/pokeView/assets/90702379/aff69e70-fc23-491e-816f-d6c492deb732)
+
 ## 注意事項
 デプロイ時は ~~`useFetchPokeData.ts`と~~ `useChangeBackGround.ts`で用意している`isDevMode`変数のbool値を変更（`false`）に切り替える。
 
