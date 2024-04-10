@@ -19,7 +19,18 @@ export const PokeContents = memo(() => {
   const { prevPagerPages, nextPagerPages } = usePager(); // ページャー機能
 
   /* ポケモンのデータを取得 */
-  useEffect(() => FetchPokeData('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'), []);
+  useEffect(() => {
+    const controller = new AbortController(); // AbortController ：非同期処理を中止するためのインターフェースを提供する Web API
+    const signal = controller.signal; // controller から AbortSignal のインスタンスを取得して変数に代入
+
+    /* ポケモンデータの fetch 処理 */
+    FetchPokeData('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0', signal);
+
+    /* useEffect のクリーンアップ処理 */
+    return () => {
+      controller.abort(); // AbortSignal に abort イベントが発生し、fetch に渡したsignal がこのイベントを検知して非同期処理をキャンセル（中止）
+    };
+  }, []);
 
   /* 最終ページの判定用 State（PokeContent の flexBox の調整で使用） */
   const [isFinalPage, setFinalPage] = useState<boolean>(false);
@@ -105,7 +116,7 @@ overflow-x: hidden;
   position: absolute;
   z-index: -1;
   margin: auto;
-  inset: -1;
+  inset: 0;
   background: linear-gradient(to top, rgba(255, 255, 255, .75) 88%, #fff 100%);
 }
 
