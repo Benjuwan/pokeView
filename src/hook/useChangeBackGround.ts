@@ -2,13 +2,25 @@ import { useCallback, useContext } from "react";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 
 export const useChangeBackGround = () => {
-    const { isPagers } = useContext(GetFetchDataContext);
+    const { isPagers, pagerLimitMaxNum, isOffSet } = useContext(GetFetchDataContext);
 
     const isDevMode: boolean = true; // 開発・本番環境モードの切替用Bool
 
     const locationPath: string = location.origin; // ドメインURLを取得
     const backGroundImgName: string = 'bg0'; // 画像データ名
     const imgExtend: string = '.jpg'; // 画像データの拡張子
+
+    /* 表示コンテンツが規定数（コンテンツ上限値から表示コンテンツ数を差し引いた数値がオフセット数の1/3 以下の場合）は（window.innerHeight 分の）height をかさます */
+    const _heightGlow = (targetEl: HTMLElement) => {
+        const dataCurrentList: HTMLButtonElement | null = document.querySelector('[data-current]');
+        const dataCurrentValue: string | undefined | null = dataCurrentList?.getAttribute('data-pager');
+        if (typeof dataCurrentValue === 'string') {
+            const dataCurrentValueNum: number = parseInt(dataCurrentValue);
+            const isSetInnerHeight:boolean = (pagerLimitMaxNum - dataCurrentValueNum) < Math.floor(isOffSet / 3);
+            if (isSetInnerHeight) targetEl.style.setProperty('height', `${window.innerHeight}px`);
+            else targetEl.style.setProperty('height', `auto`);
+        }
+    }
 
     /* ランダム表示する背景画像データを用意 */
     const _getRandomNumber: (targetEl: HTMLElement, randomNum: number) => void = (targetEl: HTMLElement, randomNum: number) => {
@@ -35,6 +47,7 @@ export const useChangeBackGround = () => {
             } else {
                 _getRandomNumber(PokeContent, randomNum);
             }
+            setTimeout(() => _heightGlow(PokeContent)); // 疑似的な遅延処理 
         }
     }, [isPagers]);
 
