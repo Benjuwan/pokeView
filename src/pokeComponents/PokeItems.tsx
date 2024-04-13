@@ -1,15 +1,9 @@
-import { FC, memo } from "react";
+import { memo } from "react";
 import styled from "styled-components";
 import { pokeLists } from "../ts/GetFetchDataType";
 import { useViewImges } from "../hook/useViewImges";
 
-type pokeItemsType = {
-  pokeData: pokeLists,
-  index: number,
-  key?: number
-}
-
-export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
+export const PokeItems = memo(({ pokeData }: { pokeData: pokeLists }) => {
   const { ViewImges } = useViewImges(); // 画像のモーダル表示機能
 
   /* 重さ・高さの表記調整 */
@@ -28,7 +22,7 @@ export const PokeItems: FC<pokeItemsType> = memo(({ pokeData, index }) => {
   }
 
   return (
-    <PokeContents className="pokeContents" key={index}>
+    <PokeContents className="pokeContents">
       <h2><span>{pokeData.id}</span>{pokeData.name}</h2>
       <div className="pokeImg" onClick={(imgElm: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         ViewImges(imgElm.currentTarget);

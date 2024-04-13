@@ -75,9 +75,9 @@ export const PokeContents = memo(() => {
           <div className={`pokeItems ${isFinalPage ? 'isFinalPage' : 'normal'}`}>
             <p id="pokeNum">{pagerLimitMaxNum} pokemons</p>
             <FilterPokeName />
-            {isPagerContents.map((pokeData, i) => (
-              <PokeItems pokeData={pokeData} index={i} key={i} />
-            ))}
+            {
+              isPagerContents.map(pokeData => <PokeItems pokeData={pokeData} key={pokeData.id} />)
+            }
             {isPokeData.length > 0 &&
               <>
                 <Pagination />

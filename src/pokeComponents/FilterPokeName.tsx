@@ -60,10 +60,7 @@ export const FilterPokeName = memo(() => {
             {isFilterPoke.length > 0 &&
                 <div className="filterPokeContents">
                     {
-                        isFilterPoke.map((filterPokeData, i) => (
-                            /* JSX での map 処理は {} ではなく () でネスト */
-                            <PokeItems pokeData={filterPokeData} index={i} key={i} />
-                        ))
+                        isFilterPoke.map(filterPokeData => <PokeItems pokeData={filterPokeData} key={filterPokeData.id} />)
                     }
                 </div>
             }
