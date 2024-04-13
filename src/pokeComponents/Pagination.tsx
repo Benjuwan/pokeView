@@ -68,7 +68,7 @@ export const Pagination = memo(() => {
             <p className="currPage">現在表示しているのは「{isCurrPage}」ページ目です。</p>
             {isPagination.map((pagerEl, i) =>
                 /* data-pager：ページャー数がセットされたカスタムデータ */
-                <button key={i}
+                <button key={pagerEl}
                     className={`pagerLists ${i === 0 && 'afterRender'}`}
                     data-current={i === 0}
                     data-pager={isPagerNum[i]}
