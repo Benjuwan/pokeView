@@ -41,8 +41,11 @@ export type speciesItems = {
     };
     names: {
         [0]: {
-            name: string;
-        };
+            language: {
+                name: string
+            },
+            name: string
+        }
     };
     flavor_text?: string; // データフェッチ処理後のオブジェクトの内容（求めている各ポケモンの紹介文情報）となる flavor_text
     flavor_text_entries: {

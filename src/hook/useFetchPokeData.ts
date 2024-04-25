@@ -23,7 +23,7 @@ export const useFetchPokeData = () => {
                 setPagerLimitMaxNum((_prevPagerLimitMaxNum) => resObj.count); // 上限値の設定
 
                 resObjResult.forEach(pokeDataSrc => {
-                    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`, { signal: signal }).then(res => res.json()).then((pokeData: pokeLists) => {
+                    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`).then(res => res.json()).then((pokeData: pokeLists) => {
                         /* then((pokeData: pokeLists)：配列（オブジェクト）の中身として指定 */
 
                         if (typeof pokeData.species !== "undefined") {
@@ -48,10 +48,16 @@ export const useFetchPokeData = () => {
                                     // console.log(speciesData.names[0].name); // タイプのデータが無いポケモンたち
                                 }
 
+                                const jaPokeName = Object.values(speciesData.names).filter(namaDataItem => {
+                                    if (namaDataItem.language.name === 'ja') {
+                                        return namaDataItem.name;
+                                    }
+                                });
+
                                 /* 取得する各種データのオブジェクトとデータの反映 */
                                 const newList: pokeLists = {
                                     id: pokeData.id,
-                                    name: speciesData.names[0].name,
+                                    name: jaPokeName[0].name,
                                     height: pokeData.height,
                                     weight: pokeData.weight,
                                     img: pokeData.sprites?.front_default,
