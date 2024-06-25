@@ -12,7 +12,7 @@
 ![pokeview-2](https://github.com/Benjuwan/pokeView/assets/90702379/aff69e70-fc23-491e-816f-d6c492deb732)
 
 ## 注意事項
-デプロイ時は ~~`useFetchPokeData.ts`と~~ `useChangeBackGround.ts`で用意している`isDevMode`変数のbool値を変更（`false`）に切り替える。
+デプロイ時は`useChangeBackGround.ts`で用意している`isDevMode`変数のbool値を変更（`false`）に切り替える。
 
 <details>
 <summary>2023/11/24 修正：和訳ファイルを使用せずAPIデータから直後取得・反映</summary>
@@ -70,10 +70,6 @@ const fetchPokeData = async () => {
 }
 ```
 </details>
-
-## FixTo
-- 2023/11/22 修正（`any`型の値を代入した変数に型注釈）：~~データ取得の関数内（`useFetchPokeData.ts`）で一部の型が`any`のまま。~~
-- 2023/11/24 修正 ログ表示されていたエラー：`Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'genus')`の解消。タイプのデータが無いポケモンの表示反映と、タイプまたは説明文が無いポケモンの表示デザインを調整（データが存在しないことを明記）
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
