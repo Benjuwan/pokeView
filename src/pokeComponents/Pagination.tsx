@@ -21,8 +21,8 @@ export const Pagination = memo(() => {
         pagerEl: number
     ) => {
         const dataPager: string | null = btnEl.currentTarget.getAttribute('data-pager');
-        setPagers((_prevPagerNum) => Number(dataPager));
-        setCurrPage((_prevCurrPage) => pagerEl); // 表示中のページ番号を変更
+        setPagers(Number(dataPager));
+        setCurrPage(pagerEl); // 表示中のページ番号を変更
         setTimeout(() => window.scrollTo(0, 0), 500); // スクロールトップ
     }
 
@@ -34,6 +34,7 @@ export const Pagination = memo(() => {
     useEffect(() => {
         ChangeBackGround();
         CheckCurrPager(isCurrPage);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isCurrPage]);
 
     /* オフセット数に基づいた計算を通してページネーション用の各ページャー項目のページを設定する */
@@ -50,17 +51,18 @@ export const Pagination = memo(() => {
                 Accumuration++;
                 srcNum = srcNum - isOffSet;
             }
-            setPagerNum((_prevPagerNum) => [...isPagerNum, ...srcAry]); // ページャー数をセット
+            setPagerNum([...isPagerNum, ...srcAry]); // ページャー数をセット
 
             const paginationAry: number[] = [];
             for (let i = 1; i <= srcAry.length; i++) {
                 paginationAry.push(i);
             }
-            setPagination((_prevPagination) => [...isPagination, ...paginationAry]); // ページ数をセット
+            setPagination([...isPagination, ...paginationAry]); // ページ数をセット
         }
     }
     useEffect(() => {
         basedonOffsetNum_setPagerNum();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPokeData]);
 
     return (

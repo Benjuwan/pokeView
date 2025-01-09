@@ -20,7 +20,7 @@ export const useFetchPokeData = () => {
                 });
                 const resObj: pokeFetchData = await respone.json();
                 const resObjResult: pokeAry[] = resObj.results;
-                setPagerLimitMaxNum((_prevPagerLimitMaxNum) => resObj.count); // 上限値の設定
+                setPagerLimitMaxNum(resObj.count); // 上限値の設定
 
                 resObjResult.forEach(pokeDataSrc => {
                     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeDataSrc.name}/`).then(res => res.json()).then((pokeData: pokeLists) => {
@@ -65,7 +65,7 @@ export const useFetchPokeData = () => {
                                     type: pokeType,
                                     flavor_text: flavorTextAry[0]
                                 }
-                                setPokeData((_prevPokeData) => [..._prevPokeData, newList]);
+                                setPokeData((prevPokeData) => [...prevPokeData, newList]);
 
                                 setLoading(false); // ローディング完了
                             });

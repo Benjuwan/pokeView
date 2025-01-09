@@ -30,6 +30,7 @@ export const PokeContents = memo(() => {
     return () => {
       controller.abort(); // AbortSignal に abort イベントが発生し、fetch に渡したsignal がこのイベントを検知して非同期処理をキャンセル（中止）
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* 最終ページの判定用 State（PokeContent の flexBox の調整で使用） */
@@ -47,7 +48,7 @@ export const PokeContents = memo(() => {
   ) => {
       const shallowCopy: pokeLists[] = [...isPokeData].sort((aheadElm, behindElm) => aheadElm.id - behindElm.id); // ポケモンの id 順にソート（StrictMode true では大体 id：60～70 番台までのポケモンが二重読込される）
       const splicedContents: pokeLists[] = shallowCopy.splice(fragStart, fragFinish);
-      setPagerContents((_prevPagerContents) => splicedContents);
+      setPagerContents(splicedContents);
     }
 
   /* ページャー処理 */
@@ -66,6 +67,7 @@ export const PokeContents = memo(() => {
         setPagerContentsFrag();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPokeData, isPagers]); // 依存配列 コンテンツデータの取得時・ページャー変更時
 
   return (

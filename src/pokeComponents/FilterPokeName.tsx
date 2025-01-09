@@ -12,8 +12,8 @@ export const FilterPokeName = memo(() => {
 
     /* ページ遷移に伴う初期化処理 */
     useEffect(() => {
-        setTargetPokeName((_prevPokeName) => '');
-        setFilterPoke((_prevFilterPoke) => []);
+        setTargetPokeName('');
+        setFilterPoke([]);
     }, [isPagers]);
 
     /* 検索結果を反映するフィルター用の State */
@@ -23,12 +23,12 @@ export const FilterPokeName = memo(() => {
     const [isTargetPokeName, setTargetPokeName] = useState<string>('');
     const setPokeName: (inputTxt: string) => void = (inputTxt: string) => {
         const targetPokeName: string = inputTxt;
-        setTargetPokeName((_prevPokeName) => targetPokeName);
+        setTargetPokeName(targetPokeName);
     }
 
     /* 検索結果（入力内容）を反映させる関数 */
     const filterPokeName: () => void = () => {
-        setFilterPoke((_prevFilterPoke) => []);
+        setFilterPoke([]);
         if (isTargetPokeName.length > 0) {
             const filterPokeName = isPokeData.filter(pokeData => {
                 if (pokeData.name.match(isTargetPokeName)) {
@@ -38,11 +38,11 @@ export const FilterPokeName = memo(() => {
 
             if (filterPokeName.length === 0) {
                 alert(`探そうとしている「${isTargetPokeName}」は存在しません`);
-                setTargetPokeName((_prevPokeName) => '');
+                setTargetPokeName('');
                 return; // 処理終了
             }
-            setFilterPoke((_prevFilterPoke) => filterPokeName);
-            setTargetPokeName((_prevPokeName) => '');
+            setFilterPoke(filterPokeName);
+            setTargetPokeName('');
         }
     }
 
