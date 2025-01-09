@@ -16,7 +16,7 @@ export const useChangeBackGround = () => {
         const dataCurrentValue: string | undefined | null = dataCurrentList?.getAttribute('data-pager');
         if (typeof dataCurrentValue === 'string') {
             const dataCurrentValueNum: number = parseInt(dataCurrentValue);
-            const isSetInnerHeight:boolean = (pagerLimitMaxNum - dataCurrentValueNum) < Math.floor(isOffSet / 3);
+            const isSetInnerHeight: boolean = (pagerLimitMaxNum - dataCurrentValueNum) < Math.floor(isOffSet / 3);
             if (isSetInnerHeight) targetEl.style.setProperty('height', `${window.innerHeight}px`);
             else targetEl.style.setProperty('height', `auto`);
         }
@@ -49,6 +49,7 @@ export const useChangeBackGround = () => {
             }
             setTimeout(() => _heightGlow(PokeContent)); // 疑似的な遅延処理 
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPagers]);
 
     return { ChangeBackGround }
