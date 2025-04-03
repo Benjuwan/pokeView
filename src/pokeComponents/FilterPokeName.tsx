@@ -1,5 +1,4 @@
 import { ChangeEvent, memo, useContext, useState, useEffect } from "react";
-import styled from "styled-components";
 import { pokeLists } from "../ts/GetFetchDataType";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { PokeItems } from "./PokeItems";
@@ -47,101 +46,40 @@ export const FilterPokeName = memo(() => {
     }
 
     return (
-        <FilterPoke>
-            <form action="" onSubmit={(formEl: ChangeEvent<HTMLFormElement>) => {
+        <div className="w-full mb-4">
+            <form className="flex items-center flex-wrap mb-4" onSubmit={(formEl: ChangeEvent<HTMLFormElement>) => {
                 formEl.preventDefault();
                 filterPokeName();
             }}>
-                <input type="text" value={isTargetPokeName} onInput={(inputEl: ChangeEvent<HTMLInputElement>) => {
-                    setPokeName(inputEl.target.value);
-                }} />
-                <button type="button" onClick={filterPokeName} disabled={isTargetPokeName.length <= 0}><img src={monsterBall} alt="モンスターボールのアイコン" />好きなポケモンをさがす</button>
+                <input
+                    type="text"
+                    value={isTargetPokeName}
+                    className="border border-[#868686] rounded-md mr-2 text-base pl-1 mb-2 md:mb-0"
+                    onInput={(inputEl: ChangeEvent<HTMLInputElement>) => {
+                        setPokeName(inputEl.target.value);
+                    }}
+                />
+                <button
+                    type="button"
+                    onClick={filterPokeName}
+                    disabled={isTargetPokeName.length <= 0}
+                    className="appearance-none rounded-[30px] border border-[#dadada] bg-[#eaeaea] py-1 pl-1 pr-4 flex items-center tracking-[0.25em] text-[0.75rem] md:text-[14px] disabled:grayscale enabled:hover:cursor-pointer enabled:hover:brightness-110"
+                >
+                    <img
+                        src={monsterBall}
+                        alt="モンスターボールのアイコン"
+                        className="block mr-2 rounded-full w-[2rem] h-[2rem] md:w-[32px] md:h-[32px]"
+                    />
+                    好きなポケモンをさがす
+                </button>
             </form>
             {isFilterPoke.length > 0 &&
-                <div className="filterPokeContents">
+                <div className="w-full mx-auto mt-4 mb-32 md:mb-16 border-b border-dotted border-[#333] flex flex-wrap justify-start gap-[5%]">
                     {
                         isFilterPoke.map(filterPokeData => <PokeItems pokeData={filterPokeData} key={filterPokeData.id} />)
                     }
                 </div>
             }
-        </FilterPoke>
+        </div>
     );
 });
-
-const FilterPoke = styled.div`
-width: 100%;
-margin-bottom: 1em;
-
-& form {
-    display: flex;
-    align-items: center;
-    flex-flow: row wrap;
-    margin-bottom: 1em;
-
-    & input[type="text"] {
-        border: 1px solid #868686;
-        border-radius: 4px;
-        margin-right: .5em;
-        font-size: 16px;
-        padding-left: .25em;
-        margin-bottom: .5em;
-
-        @media screen and (min-width: 700px) {
-            margin-bottom: 0;
-        }
-    }
-    
-    & button {
-        appearance: none;
-        border-radius: 30px;
-        border: 1px solid #dadada;
-        background-color: #eaeaea;
-        padding: .25em 1em .25em .25em;
-        display: flex;
-        align-items: center;
-        letter-spacing: .25em;
-        font-size: 1.4rem;
-
-        &[disabled] {
-            filter: grayscale(1);
-        }
-        
-        &:not([disabled]):hover {
-            cursor: pointer;
-            filter: brightness(1.1);
-        }
-
-        @media screen and (min-width: 700px) {
-            font-size: 14px;
-        }
-        
-        & img {
-            display: block;
-            margin-right: .5em;
-            border-radius: 50%;
-            width: 3rem;
-            height: 3rem;
-
-            @media screen and (min-width: 700px) {
-                width: 30px;
-                height: 30px;
-            }
-        }
-    }
-}
-
-& .filterPokeContents {
-    width: 100%;
-    margin: 1em auto;
-    margin-bottom: 8em;
-    border-bottom: 1px dotted #333;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    gap: 5%;
-
-    @media screen and (min-width: 700px) {
-        margin-bottom: 4em;
-    }
-}
-`;
