@@ -1,10 +1,7 @@
 import { memo, useState, useEffect, useContext } from "react";
-import styled from "styled-components";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { useChangeBackGround } from "../hook/useChangeBackGround";
 import { useCurrPagerSelect } from "../hook/useCurrPagerSelect";
-
-import monsterBall from "../../src/assets/monsterBall-min.png";
 
 export const Pagination = memo(() => {
     const { isPokeData, pagerLimitMaxNum, setPagers, isOffSet, isCurrPage, setCurrPage } = useContext(GetFetchDataContext);
@@ -66,109 +63,21 @@ export const Pagination = memo(() => {
     }, [isPokeData]);
 
     return (
-        <Paginations>
-            <p className="currPage">現在表示しているのは「{isCurrPage}」ページ目です。</p>
+        <div className="w-[clamp(15rem,100%,60rem)] mx-auto mb-4 flex flex-wrap items-center gap-[5%] md:w-[clamp(240px,100%,960px)] md:gap-[2%]">
+            <p className="w-full text-xs leading-8">現在表示しているのは「{isCurrPage}」ページ目です。</p>
             {isPagination.map((pagerEl, i) =>
-                /* data-pager：ページャー数がセットされたカスタムデータ */
-                <button key={pagerEl}
-                    className={`pagerLists ${i === 0 && 'afterRender'}`}
+                <button
+                    key={pagerEl}
+                    className="pagerLists cursor-pointer appearance-none min-w-[32px] mb-2 grid place-content-center relative before:block before:content[''] before:w-[2.75rem] before:h-[2.75rem] before:rounded-8 before:absolute before:-z-1 before:m-auto before:inset-[0] before:transform-[scaleY(.5)translateX(0%)] lg:before:w-[44px] lg:before:h-[44px]"
                     data-current={i === 0}
                     data-pager={isPagerNum[i]}
                     onClick={(btnEl) => {
                         setPaginationNum(btnEl, pagerEl);
-                    }}>{pagerEl}
+                    }}
+                >
+                    {pagerEl}
                 </button>
             )}
-        </Paginations>
+        </div>
     );
 });
-
-const Paginations = styled.div`
-width: clamp(240px, 100%, 960px);
-margin: 0 auto 1em;
-display: flex;
-flex-flow: row wrap;
-align-items: center;
-gap: 2%;
-
-& .currPage{
-    width: 100%;
-    font-size: 12px;
-    line-height: 2;
-}
-
-& button{
-    cursor: pointer;
-    appearance: none;
-    border-radius: 0;
-    border: 0;
-    background-color: transparent;
-    min-width: 32px;
-    margin-bottom: .5em;
-    
-    &.pagerLists{
-        display: grid;
-        place-content: center;
-        position: relative;
-        color: #fff;
-        background-color: #333;
-        border-radius: 8px;
-        padding: .25em;
-        
-        &[data-current="true"],
-        &.afterRender{
-            font-weight: bold;
-            color: #333;
-            background-color: transparent;
-            padding: 1em 1.5em;
-
-            &::before {
-                background: url(${monsterBall})no-repeat center center/cover;
-                border-radius: 50%;
-                box-shadow: 0 0 8px rgba(0, 0, 0, .5);
-                opacity: .75;
-                /* data-current が付いているものはスタイルを正す */
-                transform: scaleY(1) translateX(0%); 
-            }
-        }
-        
-        &::before {
-            display: block;
-            content: "";
-            width: 4.4rem;
-            height: 4.4rem;
-            border-radius: 8px;
-            position: absolute;
-            z-index: -1;
-            margin: auto;
-            inset: 0;
-            /* 縮小 → 拡大を実現するため scaleY(.5) で縦を縮めておく */
-            transform: scaleY(.5) translateX(0%);
-
-            @media screen and (min-width: 1025px) {
-                width: 44px;
-                height: 44px;
-            }
-        }
-        
-        &.prev{
-            &::before{
-                left: 50%;
-                /* 縮小 → 拡大を実現するため scaleY(1) */
-                transform: scaleY(1) translateX(-50%);
-                transition: transform .5s;
-            }
-        }
-        
-        &.next{
-            &::before{
-                left: auto;
-                right: 50%;
-                /* 縮小 → 拡大を実現するため scaleY(1) */
-                transform: scaleY(1) translateX(50%);
-                transition: transform .5s;
-            }
-        }
-    }
-}
-`;

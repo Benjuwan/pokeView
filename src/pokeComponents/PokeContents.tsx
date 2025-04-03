@@ -1,5 +1,4 @@
 import { memo, useState, useEffect, useContext } from "react";
-import styled from "styled-components";
 import { pokeLists } from "../ts/GetFetchDataType";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { Pagination } from "./Pagination";
@@ -73,9 +72,9 @@ export const PokeContents = memo(() => {
   return (
     <>
       {isLoading ? <LoadingEl /> :
-        <PokeContent className="PokeContent">
-          <div className={`pokeItems ${isFinalPage ? 'isFinalPage' : 'normal'}`}>
-            <p id="pokeNum">{pagerLimitMaxNum} pokemons</p>
+        <div className="PokeContent bg-no-repeat bg-cover relative z-1 overflow-x-hidden before:content-[''] before:w-screen before:h-full before:absolute before:z-[-1] before:m-auto before:inset-0 before:bg-gradient-to-t before:from-white/75 before:from-[88%] before:to-white before:to-[100%]">
+          <div className={`p-4 md:p-4 flex flex-wrap gap-[5%] w-[clamp(240px,100%,800px)] mx-auto ${isFinalPage ? 'md:justify-start' : 'md:justify-between md:gap-[2.5%]'}`}>
+            <p id="pokeNum" className="w-full text-xs mb-4">{pagerLimitMaxNum} pokemons</p>
             <FilterPokeName />
             {
               isPagerContents.map(pokeData => <PokeItems pokeData={pokeData} key={pokeData.id} />)
@@ -83,7 +82,7 @@ export const PokeContents = memo(() => {
             {isPokeData.length > 0 &&
               <>
                 <Pagination />
-                <div className="ctrlBtns">
+                <div className="flex gap-[5%] w-full mx-auto mb-12">
                   <BtnComponent btnTxt="前のページ"
                     disabledBool={isPagers <= 0}
                     classNameTxt="Prev"
@@ -98,61 +97,8 @@ export const PokeContents = memo(() => {
               </>
             }
           </div>
-        </PokeContent>
+        </div>
       }
     </>
   );
 });
-
-const PokeContent = styled.div`
-background-repeat: no-repeat;
-background-size: cover;
-position: relative;
-z-index: 1;
-overflow-x: hidden;
-
-&::before{
-  content: "";
-  width: 100vw;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
-  margin: auto;
-  inset: 0;
-  background: linear-gradient(to top, rgba(255, 255, 255, .75) 88%, #fff 100%);
-}
-
-& .pokeItems{
-  padding: 1em 5em;
-  display: flex;
-  flex-flow: row wrap;
-  gap: 5%;
-  width: clamp(240px, 100%, 800px);
-  margin: 0 auto;
-
-  @media screen and (min-width: 700px) {
-  padding: 1em;
-
-  &.normal{
-      justify-content: space-between;
-      gap: 2.5%;
-    }
-    &.isFinalPage{
-      justify-content: flex-start;
-    }
-  }
-
-  & #pokeNum{
-    width: 100%;
-    font-size: 12px;
-    margin-bottom: 1em;
-  }
-
-  & .ctrlBtns{
-    display: flex;
-    gap: 5%;
-    width: 100%;
-    margin: 0 auto 3em;
-  }
-}
-`;

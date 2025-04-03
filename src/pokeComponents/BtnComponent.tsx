@@ -1,5 +1,4 @@
 import { FC, memo } from "react";
-import styled from "styled-components";
 
 type btnType = {
     btnTxt: string;
@@ -12,32 +11,13 @@ export const BtnComponent: FC<btnType> = memo((props) => {
     const { btnTxt, classNameTxt = 'default', ClickEvent, disabledBool } = props;
 
     return (
-        <BtnItem
+        <button
             type="button"
             disabled={disabledBool}
-            className={classNameTxt}
+            className={`${classNameTxt} w-full appearance-none border border-[#333] bg-[#fff] rounded text-center leading-[2] disabled:bg-[#dadada] disabled:text-[#a8a8a8] not-disabled:cursor-pointer not-disabled:hover:text-[#fff] not-disabled:hover:bg-[#333] not-disabled:hover:border-transparent`}
             onClick={ClickEvent}
         >
             {btnTxt}
-        </BtnItem>
+        </button>
     );
 });
-
-const BtnItem = styled.button`
-width: 100%;
-appearance: none;
-border: 1px solid #333;
-background-color: #fff;
-border-radius: 4px;
-text-align: center;
-line-height: 2;
-
-&:not([disabled]){
-    cursor: pointer;
-    &:hover {
-        color: #fff;
-        background-color: #333;
-        border-color: transparent;
-    }
-}
-`;
