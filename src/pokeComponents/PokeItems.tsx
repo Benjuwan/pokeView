@@ -31,7 +31,7 @@ export const PokeItems = memo(({ pokeData }: { pokeData: pokeLists }) => {
           ViewImges(imgElm.currentTarget);
         }}
       >
-        <img className="gameArt" src={pokeData.img} alt={pokeData.name} />
+        <img className="gameArt block w-fit m-auto" src={pokeData.img} alt={pokeData.name} />
         <div className="officialArtwork fixed inset-0 m-auto grid place-content-center bg-black/75 opacity-0 invisible z-1">
           <img
             className="bg-white rounded-md w-[clamp(10rem,calc(100vw/1.4),30rem)] md:w-[clamp(160px,calc(100vw/1.4),400px)]"
