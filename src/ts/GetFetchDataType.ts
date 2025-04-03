@@ -1,14 +1,14 @@
 export type pokeAry = {
     name: string;
     url: string;
-}
+};
 
 export type pokeFetchData = {
     count: number;
     next?: number | null;
     previous?: number | null;
     results: pokeAry[];
-}
+};
 
 export type pokeLists = {
     id: number;
@@ -30,7 +30,7 @@ export type pokeLists = {
     species?: {
         url: string;
     };
-}
+};
 
 export type speciesItems = {
     genera: {
@@ -56,9 +56,9 @@ export type speciesItems = {
             };
         }) => string | undefined): speciesItems[];
     };
-}
+};
 
 export type pokeNameLocalJsonFile = {
     ja: string;
     en: string;
-}
+};
