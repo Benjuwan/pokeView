@@ -28,7 +28,7 @@
 - react@18.3.1
 - tailwindcss@4.1.1
 - typescript@5.8.2
-- vite@6.2.4
+- vite@6.2.5
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
