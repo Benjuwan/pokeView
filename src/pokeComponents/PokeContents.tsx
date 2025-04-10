@@ -72,8 +72,8 @@ export const PokeContents = memo(() => {
   return (
     <>
       {isLoading ? <LoadingEl /> :
-        <div className="PokeContent bg-no-repeat bg-cover relative z-1 overflow-x-hidden before:content-[''] before:w-screen before:h-full before:absolute before:z-[-1] before:m-auto before:inset-0 before:bg-gradient-to-t before:from-white/75 before:from-[88%] before:to-white before:to-[100%]">
-          <div className={`p-4 md:p-4 flex flex-wrap gap-[5%] w-[clamp(240px,100%,800px)] mx-auto ${isFinalPage ? 'md:justify-start' : 'md:justify-between md:gap-[2.5%]'}`}>
+        <div className="PokeContent bg-no-repeat bg-cover relative z-1 overflow-x-hidden before:content-[''] before:w-screen before:h-full before:absolute before:z-[-1] before:m-auto before:inset-0 before:bg-[linear-gradient(to_top,_rgba(255,255,255,.75)_88%,_#fff_100%)]">
+          <div className={`p-4 flex flex-wrap gap-[5%] w-[clamp(240px,100%,800px)] mx-auto ${isFinalPage ? 'md:justify-start' : 'md:justify-between md:gap-[2.5%]'}`}>
             <p id="pokeNum" className="w-full text-xs mb-4">{pagerLimitMaxNum} pokemons</p>
             <FilterPokeName />
             {

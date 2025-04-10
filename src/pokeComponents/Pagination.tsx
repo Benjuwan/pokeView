@@ -63,12 +63,12 @@ export const Pagination = memo(() => {
     }, [isPokeData]);
 
     return (
-        <div className="w-[clamp(15rem,100%,60rem)] mx-auto mb-4 flex flex-wrap items-center gap-[5%] md:w-[clamp(240px,100%,960px)] md:gap-[2%]">
+        <div className="w-[clamp(15rem,100%,60rem)] mx-auto mb-4 flex flex-wrap items-center gap-[5%] md:gap-[2%]">
             <p className="w-full text-xs leading-8">現在表示しているのは「{isCurrPage}」ページ目です。</p>
             {isPagination.map((pagerEl, i) =>
                 <button
                     key={pagerEl}
-                    className="pagerLists cursor-pointer appearance-none min-w-[32px] mb-2 grid place-content-center relative before:block before:content[''] before:w-[2.75rem] before:h-[2.75rem] before:rounded-8 before:absolute before:-z-1 before:m-auto before:inset-[0] before:transform-[scaleY(.5)translateX(0%)] lg:before:w-[44px] lg:before:h-[44px]"
+                    className="pagerLists cursor-pointer appearance-none min-w-[32px] mb-2 grid place-content-center relative before:block before:content[''] before:w-[2.75rem] before:h-[2.75rem] before:rounded-8 before:absolute before:-z-1 before:m-auto before:inset-[0] before:transform-[scaleY(.5)translateX(0%)]"
                     data-current={i === 0}
                     data-pager={isPagerNum[i]}
                     onClick={(btnEl) => {
