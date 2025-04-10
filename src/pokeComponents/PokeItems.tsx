@@ -21,9 +21,9 @@ export const PokeItems = memo(({ pokeData }: { pokeData: pokeLists }) => {
   }
 
   return (
-    <div className="w-[45%] text-[0.75rem] text-center bg-white shadow-[inset_8px_8px_24px_#e6e6e6,_inset_-8px_-8px_24px_#ffffff] p-4 rounded-lg mb-[5%] md:text-[14px] md:w-full md:max-w-[120px]">
-      <h2 className="text-[1rem] font-normal text-center md:text-[16px]">
-        <span className="block text-[0.75rem] md:text-[14px]">{pokeData.id}</span>{pokeData.name}
+    <div className="w-[45%] text-sm text-center bg-white shadow-[inset_8px_8px_24px_#e6e6e6,_inset_-8px_-8px_24px_#ffffff] p-4 rounded-lg mb-[5%] md:w-full md:max-w-[120px]">
+      <h2 className="text-base font-normal text-center">
+        <span className="block text-sm">{pokeData.id}</span>{pokeData.name}
       </h2>
       <div
         className="pokeImg"
@@ -34,12 +34,12 @@ export const PokeItems = memo(({ pokeData }: { pokeData: pokeLists }) => {
         <img className="gameArt block w-fit m-auto" src={pokeData.img} alt={pokeData.name} />
         <div className="officialArtwork fixed inset-0 m-auto grid place-content-center bg-black/75 opacity-0 invisible z-1">
           <img
-            className="bg-white rounded-md w-[clamp(10rem,calc(100vw/1.4),30rem)] md:w-[clamp(160px,calc(100vw/1.4),400px)]"
+            className="bg-white rounded-md w-[clamp(10rem,calc(100vw/1.4),30rem)]"
             src={pokeData.officialImg}
             alt={`${pokeData.name}のオフィシャル画像`}
           />
-          <div className="bg-white rounded w-[clamp(10rem,calc(100vw/1.4),30rem)] mt-4 p-4 text-left text-[0.75rem] leading-8 tracking-[0.25em] md:text-[14px] md:w-[clamp(160px,calc(100vw/1.4),400px)]">
-            <p className="text-[1rem] font-bold md:text-[16px]">{pokeData.name}</p>
+          <div className="bg-white rounded w-[clamp(10rem,calc(100vw/1.4),30rem)] mt-4 p-4 text-left text-sm leading-8 tracking-[0.25em]">
+            <p className="text-base font-bold">{pokeData.name}</p>
             {pokeData.type ?
               <p className="type">{pokeData.type}</p> :
               <p className="type">---今はまだ <a href="https://pokeapi.co/" target="_blank">「Pokémon API」</a> から「タイプ」のデータがありません。</p>

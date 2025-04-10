@@ -63,12 +63,12 @@ export const FilterPokeName = memo(() => {
                     type="button"
                     onClick={filterPokeName}
                     disabled={isTargetPokeName.length <= 0}
-                    className="appearance-none rounded-[30px] border border-[#dadada] bg-[#eaeaea] py-1 pl-1 pr-4 flex items-center tracking-[0.25em] text-[0.75rem] md:text-[14px] disabled:grayscale enabled:hover:cursor-pointer enabled:hover:brightness-110"
+                    className="appearance-none rounded-[30px] border border-[#dadada] bg-[#eaeaea] py-1 pl-1 pr-4 flex items-center tracking-[0.25em] text-sm disabled:grayscale enabled:hover:cursor-pointer enabled:hover:brightness-110"
                 >
                     <img
                         src={monsterBall}
                         alt="モンスターボールのアイコン"
-                        className="block mr-2 rounded-full w-[2rem] h-[2rem] md:w-[32px] md:h-[32px]"
+                        className="block mr-2 rounded-full w-[2rem] h-[2rem]"
                     />
                     好きなポケモンをさがす
                 </button>
