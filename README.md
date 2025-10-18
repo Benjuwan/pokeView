@@ -20,15 +20,16 @@
 - @types/react@19.2.2
 - @typescript-eslint/eslint-plugin@8.46.1
 - @typescript-eslint/parser@8.46.1
-- @vitejs/plugin-react@1.3.2
-- eslint-plugin-react-hooks@4.6.2
-- eslint-plugin-react-refresh@0.4.23
-- eslint@8.57.1
+- @vitejs/plugin-react@5.0.4
+- eslint-plugin-react-hooks@7.0.0
+- eslint-plugin-react-refresh@0.4.24
+- eslint-plugin-react@7.37.5
+- eslint@9.38.0
 - react-dom@19.2.0
 - react@19.2.0
 - tailwindcss@4.1.14
 - typescript@5.9.3
-- vite@6.3.7
+- vite@7.1.10
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)

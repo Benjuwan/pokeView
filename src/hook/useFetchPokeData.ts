@@ -74,7 +74,7 @@ export const useFetchPokeData = () => {
                 });
             } catch (err: unknown) {
                 if (err instanceof Error && signal.reason.name === "AbortError") {
-                    console.log('useEffect のクリーンアップ完了');
+                    console.warn('useEffect のクリーンアップ完了');
                     return;
                 }
             }
