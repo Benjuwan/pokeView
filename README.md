@@ -15,11 +15,11 @@
 デプロイ時は`useChangeBackGround.ts`で用意している`isDevMode`変数のbool値を変更（`false`）に切り替える。
 
 ## 技術構成
-- @tailwindcss/vite@4.1.14
+- @tailwindcss/vite@4.1.15
 - @types/react-dom@19.2.2
 - @types/react@19.2.2
-- @typescript-eslint/eslint-plugin@8.46.1
-- @typescript-eslint/parser@8.46.1
+- @typescript-eslint/eslint-plugin@8.46.2
+- @typescript-eslint/parser@8.46.2
 - @vitejs/plugin-react@5.0.4
 - eslint-plugin-react-hooks@7.0.0
 - eslint-plugin-react-refresh@0.4.24
@@ -27,9 +27,9 @@
 - eslint@9.38.0
 - react-dom@19.2.0
 - react@19.2.0
-- tailwindcss@4.1.14
+- tailwindcss@4.1.15
 - typescript@5.9.3
-- vite@7.1.10
+- vite@7.1.11
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
