@@ -43,7 +43,7 @@ export const Pagination = memo(() => {
 
             /* 各ページャー項目の data-pager の値を生成（引算用途の上限数値：srcNum が 0 を切るまでオフセット数を倍数していくループ処理）*/
             let Accumuration = 0;
-            while (srcNum >= 0) {
+            while (srcNum > 0) {
                 srcAry.push(isOffSet * Accumuration);
                 Accumuration++;
                 srcNum = srcNum - isOffSet;
@@ -68,7 +68,7 @@ export const Pagination = memo(() => {
             {isPagination.map((pagerEl, i) =>
                 <button
                     key={pagerEl}
-                    className="pagerLists cursor-pointer appearance-none min-w-[32px] mb-2 grid place-content-center relative before:block before:content[''] before:w-[2.75rem] before:h-[2.75rem] before:rounded-8 before:absolute before:-z-1 before:m-auto before:inset-[0] before:transform-[scaleY(.5)translateX(0%)]"
+                    className="pagerLists cursor-pointer appearance-none min-w-8 mb-2 grid place-content-center relative before:block before:content[''] before:w-11 before:h-11 before:rounded-8 before:absolute before:-z-1 before:m-auto before:inset-0 before:transform-[scaleY(.5)translateX(0%)]"
                     data-current={i === 0}
                     data-pager={isPagerNum[i]}
                     onClick={(btnEl) => {
