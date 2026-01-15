@@ -17,9 +17,9 @@
 ## 技術構成
 - @tailwindcss/vite@4.1.18
 - @types/react-dom@19.2.3
-- @types/react@19.2.7
-- @typescript-eslint/eslint-plugin@8.50.0
-- @typescript-eslint/parser@8.50.0
+- @types/react@19.2.8
+- @typescript-eslint/eslint-plugin@8.53.0
+- @typescript-eslint/parser@8.53.0
 - @vitejs/plugin-react@5.1.2
 - eslint-plugin-react-hooks@7.0.1
 - eslint-plugin-react-refresh@0.4.26
@@ -29,7 +29,7 @@
 - react@19.2.3
 - tailwindcss@4.1.18
 - typescript@5.9.3
-- vite@7.3.0
+- vite@7.3.1
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
