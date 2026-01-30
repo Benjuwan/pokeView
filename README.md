@@ -17,7 +17,7 @@
 ## 技術構成
 - @tailwindcss/vite@4.1.18
 - @types/react-dom@19.2.3
-- @types/react@19.2.9
+- @types/react@19.2.10
 - @typescript-eslint/eslint-plugin@8.54.0
 - @typescript-eslint/parser@8.54.0
 - @vitejs/plugin-react@5.1.2

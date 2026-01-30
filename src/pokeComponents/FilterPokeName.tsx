@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useContext, useState, useEffect } from "react";
+import { SyntheticEvent, memo, useContext, useState, useEffect } from "react";
 import { pokeLists } from "../ts/GetFetchDataType";
 import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 import { PokeItems } from "./PokeItems";
@@ -47,7 +47,7 @@ export const FilterPokeName = memo(() => {
 
     return (
         <div className="w-full mb-4">
-            <form className="flex items-center flex-wrap mb-4" onSubmit={(formEl: ChangeEvent<HTMLFormElement>) => {
+            <form className="flex items-center flex-wrap mb-4" onSubmit={(formEl: SyntheticEvent<HTMLFormElement>) => {
                 formEl.preventDefault();
                 filterPokeName();
             }}>
@@ -55,8 +55,8 @@ export const FilterPokeName = memo(() => {
                     type="text"
                     value={isTargetPokeName}
                     className="border border-[#868686] rounded-md mr-2 text-base pl-1 mb-2 md:mb-0"
-                    onInput={(inputEl: ChangeEvent<HTMLInputElement>) => {
-                        setPokeName(inputEl.target.value);
+                    onInput={(inputEl: SyntheticEvent<HTMLInputElement>) => {
+                        setPokeName(inputEl.currentTarget.value);
                     }}
                 />
                 <button
@@ -68,7 +68,7 @@ export const FilterPokeName = memo(() => {
                     <img
                         src={monsterBall}
                         alt="モンスターボールのアイコン"
-                        className="block mr-2 rounded-full w-[2rem] h-[2rem]"
+                        className="block mr-2 rounded-full w-8 h-8"
                     />
                     好きなポケモンをさがす
                 </button>
