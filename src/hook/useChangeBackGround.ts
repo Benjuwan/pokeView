@@ -4,7 +4,7 @@ import { GetFetchDataContext } from "../provider/GetFetchDataContext";
 export const useChangeBackGround = () => {
     const { isPagers, pagerLimitMaxNum, isOffSet } = useContext(GetFetchDataContext);
 
-    const isDevMode: boolean = true; // 開発・本番環境モードの切替用Bool
+    const isDevMode: boolean = import.meta.env.DEV; // 開発・本番環境モードの切替用Bool（初期値：`true`）
 
     const locationPath: string = location.origin; // ドメインURLを取得
     const backGroundImgName: string = 'bg0'; // 画像データ名

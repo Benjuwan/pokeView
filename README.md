@@ -11,9 +11,6 @@
 
 ![pokeview-2](https://github.com/Benjuwan/pokeView/assets/90702379/aff69e70-fc23-491e-816f-d6c492deb732)
 
-## 注意事項
-デプロイ時は`useChangeBackGround.ts`で用意している`isDevMode`変数のbool値を変更（`false`）に切り替える。
-
 ## 技術構成
 - @tailwindcss/vite@4.2.1
 - @types/react-dom@19.2.3
