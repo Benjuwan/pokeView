@@ -12,21 +12,21 @@
 ![pokeview-2](https://github.com/Benjuwan/pokeView/assets/90702379/aff69e70-fc23-491e-816f-d6c492deb732)
 
 ## 技術構成
-- @tailwindcss/vite@4.3.0
+- @tailwindcss/vite@4.3.1
 - @types/react-dom@19.2.3
-- @types/react@19.2.14
-- @typescript-eslint/eslint-plugin@8.59.3
-- @typescript-eslint/parser@8.59.3
-- @vitejs/plugin-react@5.2.0
+- @types/react@19.2.17
+- @typescript-eslint/eslint-plugin@8.61.1
+- @typescript-eslint/parser@8.61.1
+- @vitejs/plugin-react@6.0.2
 - eslint-plugin-react-hooks@7.1.1
-- eslint-plugin-react-refresh@0.5.2
+- eslint-plugin-react-refresh@0.5.3
 - eslint-plugin-react@7.37.5
-- eslint@9.39.4
-- react-dom@19.2.6
-- react@19.2.6
-- tailwindcss@4.3.0
-- typescript@5.9.3
-- vite@7.3.3
+- eslint@10.5.0
+- react-dom@19.2.7
+- react@19.2.7
+- tailwindcss@4.3.1
+- typescript@6.0.3
+- vite@8.0.16
 
 ## 参照情報
 [https://qiita.com/hato_code/items/e75f215ef2d5191341dc#](https://qiita.com/hato_code/items/e75f215ef2d5191341dc#)
